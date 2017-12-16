@@ -1,6 +1,0 @@
-1. The AI's motive (research online for AI stories and watch 2001: A Space Odyssey)[SOLVED] - to protect the workers on the
-spaceship from the user. They are the reason the workers are acting so selfish and dying all the time. The computer will not allow
-the user to log out because he might start a new game
-2. Ending
-3. How do you earn money[SOLVED] - private investor
-4. How to handle Yes or No questions(possible solution don't have any)[SOLVED] - have a class that deals with them. Don't store them in the DB
