@@ -1364,11 +1364,11 @@ a.text-warning:hover,
 a.text-warning:focus {
   color: #66512c;
 }
-.text-danger {
+.sc-danger {
   color: #a94442;
 }
-a.text-danger:hover,
-a.text-danger:focus {
+a.sc-danger:hover,
+a.sc-danger:focus {
   color: #843534;
 }
 .bg-primary {
