@@ -10,6 +10,11 @@
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <hr />
             <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control sc-input" />
+                <span asp-validation-for="UserName" class="sc-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control sc-input" />
                 <span asp-validation-for="Email" class="sc-danger"></span>

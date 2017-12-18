@@ -35,6 +35,7 @@ hr {
 
 .sc-navbar .navbar-header a,
 .sc-navbar .nav li a,
+.sc-navbar .nav li button,
 footer {
     color: #ECF0F1;
 }
@@ -44,8 +45,10 @@ footer {
     
 }
 
-.sc-navbar .nav li a:hover {
+.sc-navbar .nav li a:hover,
+.sc-navbar .nav li button:hover {
     color: #2980B9;
+    text-decoration: none;
 }
 
 .sc-input {
