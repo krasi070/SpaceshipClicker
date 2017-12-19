@@ -6,8 +6,6 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    /*background-image: url('../images/spaceship_clicker_bg.png');
-    background-size: cover;*/
     color: #ECF0F1;
     font-family: 'ocraext';
     font-weight: 500;
@@ -17,7 +15,7 @@ hr {
     border: 2px solid #ECF0F1;
 }
 
-.sc-brand {
+.sc-navbar .navbar-header a.sc-brand {
     font-weight: 900;
     font-size: 24px;
 }
@@ -38,6 +36,7 @@ hr {
 .sc-navbar .nav li button,
 footer {
     color: #ECF0F1;
+    font-size: 16px;
 }
 
 .sc-navbar li:hover {
