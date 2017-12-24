@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
     using System.ComponentModel.DataAnnotations;
 
     public class Notification
@@ -7,8 +8,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(5)]
-        [MaxLength(200)]
+        [MinLength(Constants.NotificationMinTextLength)]
+        [MaxLength(Constants.NotificationMaxTextLength)]
         public string Text { get; set; }
 
         [Range(0, int.MaxValue)]

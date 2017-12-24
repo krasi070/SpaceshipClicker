@@ -110,6 +110,19 @@ footer {
     margin: 15px;
 }
 
+.sc-logout-fix .navbar-btn {
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.sc-reviews {
+    list-style-type: none;
+}
+
+.sc-review {
+    
+}
+
 /*Scrolling animation*/
 .overlay {
     position: fixed;

@@ -1,14 +1,16 @@
 ﻿namespace SpaceshipClicker.Web
 {
+    using Constants;
+    using Data;
+    using Data.Models;
+    using Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using SpaceshipClicker.Data;
-    using SpaceshipClicker.Data.Models;
-    using SpaceshipClicker.Web.Services;
+    using Web.Services;
 
     public class Startup
     {
@@ -30,11 +32,12 @@
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
-                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredLength = Constants.PasswordMinLength;
                 })
                 .AddEntityFrameworkStores<SpaceshipClickerDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddDomainServices();
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();

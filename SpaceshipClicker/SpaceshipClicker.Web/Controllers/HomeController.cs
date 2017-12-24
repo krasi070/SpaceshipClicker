@@ -1,15 +1,22 @@
 ﻿namespace SpaceshipClicker.Web.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-    using SpaceshipClicker.Web.Models;
+    using Models;
+    using SpaceshipClicker.Services;
+    using System.Diagnostics;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IReviewService _reviews;
+
+        public HomeController(IReviewService reviews)
         {
-            return View();
+            this._reviews = reviews;
         }
+
+        public IActionResult Index()
+            => View(this._reviews.GetDefault());
+        
 
         public IActionResult About()
         {

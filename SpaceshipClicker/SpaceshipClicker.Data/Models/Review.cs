@@ -1,16 +1,21 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     public class Review
     {
         public int Id { get; set; }
 
-        [MaxLength(280)]
+        [MinLength(Constants.ReviewMinTextLength)]
+        [MaxLength(Constants.ReviewMaxTextLength)]
         public string Text { get; set; }
 
-        [Range(1, 10)]
+        [Range(Constants.ReviewMinScore, Constants.ReviewMaxScore)]
         public int Score { get; set; }
+
+        public DateTime ReviewedOn { get; set; }
 
         public bool IsApproved { get; set; }
 

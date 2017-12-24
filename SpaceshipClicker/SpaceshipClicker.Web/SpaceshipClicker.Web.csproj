@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpaceshipClicker.Constants\SpaceshipClicker.Constants.csproj" />
     <ProjectReference Include="..\SpaceshipClicker.Data\SpaceshipClicker.Data.csproj" />
     <ProjectReference Include="..\SpaceshipClicker.Services\SpaceshipClicker.Services.csproj" />
   </ItemGroup>

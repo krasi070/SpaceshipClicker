@@ -1,25 +1,26 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
     using Microsoft.AspNetCore.Identity;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class User : IdentityUser
     {
-        [MinLength(1)]
-        [MaxLength(50)]
+        [MinLength(Constants.SpaceshipNameMinLength)]
+        [MaxLength(Constants.SpaceshipNameMaxLength)]
         public string SpaceshipName { get; set; }
 
-        [Range(0, long.MaxValue)]
+        [Range(Constants.MinUnits, long.MaxValue)]
         public long Units { get; set; }
 
-        [Range(0, long.MaxValue)]
+        [Range(Constants.MinUnits, long.MaxValue)]
         public long UnitsPerClick { get; set; }
 
-        [Range(0, long.MaxValue)]
+        [Range(Constants.MinUnits, long.MaxValue)]
         public long UnitsPerSecond { get; set; }
 
-        [Range(0, 5)]
+        [Range(Constants.MinAiLevel, Constants.MaxAiLevel)]
         public int AiLevel { get; set; }
 
         public bool HasBathroom { get; set; }

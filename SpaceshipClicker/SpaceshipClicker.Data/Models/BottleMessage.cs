@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
     using System.ComponentModel.DataAnnotations;
 
     public class BottleMessage
@@ -7,8 +8,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(5)]
-        [MaxLength(1000)]
+        [MinLength(Constants.BottleMessageMinTextLength)]
+        [MaxLength(Constants.BottleMessageMaxTextLength)]
         public string Text { get; set; }
 
         public bool IsApproved { get; set; }

@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
     using Enums;
     using System.ComponentModel.DataAnnotations;
 
@@ -8,8 +9,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(140)]
+        [MinLength(Constants.TweetMinTextLength)]
+        [MaxLength(Constants.TweetMaxTextLength)]
         public string Text { get; set; }
 
         public Emotion Emotion { get; set; }

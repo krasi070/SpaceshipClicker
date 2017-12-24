@@ -1,88 +1,45 @@
-﻿@{
+﻿@model IEnumerable<DefaultReviewModel> 
+
+@{
     ViewData["Title"] = "Spaceship Clicker";
+    bool isFirstReview = true;
 }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <li data-target="#myCarousel" data-slide-to="@i" @(i == 0 ? "class=active" : string.Empty)></li>
+        }
     </ol>
     <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/transparent_banner.png" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    It's part side-scrolling brawler and part match-3 puzzle, in the guise of a competitive cook-off game in which you must murder monsters and then cook them into delicious dishes.
-                </p>
-                <p>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                </p>
-                <!--<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-        Learn More
-    </a>-->
+        @foreach (DefaultReviewModel review in Model)
+        {
+            <div class="item @(isFirstReview ? "active" : string.Empty)">
+                <img src="~/images/transparent_banner.png" alt="ASP.NET" class="img-responsive" />
+                <div class="carousel-caption" role="option">
+                    <p>@review.Text</p>
+                    <p>
+                        @for (int i = 0; i < review.Score / 2; i++)
+                        {
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        }
 
+                        @if (review.Score % 2 == 1)
+                        {
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                        }
+
+                        @for (int i = 0; i < (Constants.ReviewMaxScore - review.Score) / 2; i++)
+                        {
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        }
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="item">
-            <img src="~/images/transparent_banner.png" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    A contender to dethrone DOTA as Steams premier misery simulator. A difficult 2d boss-rush game with gorgeous aesthetic and soundtrack inspired by old Disney cartoons. You will die, a lot.
-                </p>
-                <p>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                </p>
-                <!--<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-        Learn More
-    </a>-->
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/transparent_banner.png" alt="Package Management" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    PC has been lacking a good anti-gravity racer. Redout just filled that niche and did it incredibly well. Awesome feeling of speed, great controls.
-                </p>
-                <p>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </p>
-                <!--<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-        Learn More
-    </a>-->
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/transparent_banner.png" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    If you're in the market for something stylish that is nothing but difficult, multi-phase bosses. This might be for you.
-                </p>
-                <p>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                </p>
-                <!--<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-        Learn More
-    </a>-->
-            </div>
-        </div>
+
+            isFirstReview = false;
+        }
     </div>
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

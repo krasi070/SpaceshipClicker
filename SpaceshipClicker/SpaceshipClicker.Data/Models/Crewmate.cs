@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Data.Models
 {
+    using Constants;
     using Enums;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,8 +10,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(20)]
+        [MinLength(Constants.CrewmateMinNameLength)]
+        [MaxLength(Constants.CrewmateMaxNameLength)]
         public string Name { get; set; }
 
         public Gender Gender { get; set; }
@@ -23,13 +24,13 @@
 
         public Crewmate Crush { get; set; }
 
-        [Range(0, 5)]
+        [Range(Constants.CrewmateMinDepressionLevel, Constants.CrewmateMaxDepressionLevel)]
         public int DepressionLevel { get; set; }
 
-        [Range(0, long.MaxValue)]
+        [Range(Constants.MinUnits, long.MaxValue)]
         public long UnitsPerSecond { get; set; }
 
-        [Range(0, long.MaxValue)]
+        [Range(Constants.MinUnits, long.MaxValue)]
         public long TotalUnitsEarned { get; set; }
 
         public string UserId { get; set; }
