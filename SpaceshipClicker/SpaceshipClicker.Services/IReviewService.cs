@@ -1,6 +1,7 @@
 ﻿namespace SpaceshipClicker.Services
 {
     using Models.Reviews;
+    using System;
     using System.Collections.Generic;
 
     public interface IReviewService
@@ -9,8 +10,7 @@
 
         IEnumerable<DetailsReviewModel> GetAll();
 
-        // TODO: Add filter parameters
-        IEnumerable<DetailsReviewModel> GetFilteredReviews();
+        IEnumerable<DetailsReviewModel> GetFilteredReviews(float minStars, float maxStars, DateTime from, DateTime to);
 
         void Create(string text, int score, string userId);
     }

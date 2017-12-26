@@ -117,15 +117,49 @@ footer {
 
 .sc-reviews {
     list-style-type: none;
+    padding-left: 0;
 }
 
 .sc-review {
-    
+    padding: 10px 10px 60px 10px;
+}
+
+.sc-review:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sc-review span {
+    font-style: italic;
+    display: inline-block;
+}
+
+.sc-review-stars {
+    font-size: 2em;
+}
+
+.sc-review-text {
+    margin-top: 10px;
+    font-size: 1.4em;
+}
+
+.sc-review-filter {
+    width: 22%;
+    float: left;
+}
+
+.sc-review-list {
+    width: 73%;
+    float: right;
+}
+
+.sc-btn-apply {
+    width: 100%;
+    margin: 20px 0;
 }
 
 /*Scrolling animation*/
 .overlay {
-    position: fixed;
     background: url('../images/spaceship_clicker_bg.png');
     -webkit-animation: 100s scroll infinite linear;
     -moz-animation: 100s scroll infinite linear;
@@ -167,6 +201,12 @@ footer {
     }
 }
 /*End scrolling animation*/
+
+.sc-footer {
+    position: relative;
+    height: 50px;
+    clear: both;
+}
 
 @media screen and (max-width: 767px) {
     .carousel-caption {

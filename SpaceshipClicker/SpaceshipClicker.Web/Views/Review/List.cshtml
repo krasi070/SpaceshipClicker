@@ -1,27 +1,64 @@
-﻿@model IEnumerable<DetailsReviewModel>
+﻿@model ReviewListViewModel
 
 @{
     ViewData["Title"] = "Reviews - Spaceship Clicker";
 }
 
-<h2>Reviews</h2>
-<ul class="sc-reviews">
-    <li class="sc-review">
-        <p>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-        </p>
-        <p>
-            By krasi070
-        </p>
-        <p>
-            Posted on 24/12/2017
-        </p>
-        <p>
-            PC has been lacking a good anti-gravity racer. Redout just filled that niche and did it incredibly well. Awesome feeling of speed, great controls.
-        </p>
-    </li>
-</ul>
+<aside class="sc-review-filter">
+    <h2>Filters</h2>
+    <hr />
+    <form method="get">
+        <div class="form-group">
+            <label asp-for="MinStars"></label>
+            <input asp-for="MinStars" value="0.5" class="form-control sc-input" />
+            <span asp-validation-for="MinStars" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MaxStars"></label>
+            <input asp-for="MaxStars" value="5" class="form-control sc-input" />
+            <span asp-validation-for="MaxStars" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="From"></label>
+            <input type="date" asp-for="From" class="form-control sc-input" />
+            <span asp-validation-for="From" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="To"></label>
+            <input type="date" asp-for="To" class="form-control sc-input" />
+            <span asp-validation-for="To" class="sc-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-default sc-btn sc-btn-apply">Apply</button>
+    </form>
+</aside>
+<div class="sc-review-list">
+    <h2>Reviews</h2>
+    <hr />
+    <ul class="sc-reviews">
+        @foreach (var review in Model.Reviews)
+        {
+            <li class="sc-review">
+                <p class="sc-review-stars">
+                    @for (int i = 0; i < review.Score / 2; i++)
+                    {
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    }
+
+                    @if (review.Score % 2 == 1)
+                    {
+                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    }
+
+                    @for (int i = 0; i < (Constants.ReviewMaxScore - review.Score) / 2; i++)
+                    {
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    }
+                </p>
+                <span>By @review.ByUser</span>
+                <br />
+                <span>Posted on @review.ReviewedOn.Day/@review.ReviewedOn.Month/@review.ReviewedOn.Year</span>
+                <p class="sc-review-text">@review.Text</p>
+            </li>
+        }
+    </ul>
+</div>

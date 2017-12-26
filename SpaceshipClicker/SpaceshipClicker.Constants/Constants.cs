@@ -36,5 +36,8 @@
 
         public const int PasswordMaxLength = 100;
         public const int PasswordMinLength = 6;
+
+        public const float MinStars = 0.5f;
+        public const float MaxStars = 5f;
     }
 }
