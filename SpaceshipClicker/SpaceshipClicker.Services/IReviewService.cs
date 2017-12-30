@@ -8,9 +8,9 @@
     {
         IEnumerable<DefaultReviewModel> GetDefault(int amount = 3);
 
-        IEnumerable<DetailsReviewModel> GetAll();
+        IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order);
 
-        IEnumerable<DetailsReviewModel> GetFilteredReviews(float minStars, float maxStars, DateTime from, DateTime to);
+        IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
 
         void Create(string text, int score, string userId);
     }

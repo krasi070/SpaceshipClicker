@@ -39,5 +39,6 @@
 
         public const float MinStars = 0.5f;
         public const float MaxStars = 5f;
+        public const float IntervalStars = 0.5f;
     }
 }

@@ -1,0 +1,29 @@
+﻿@model ReviewCreateViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Review in Progress - Spaceship Clicker";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h2>@UserManager.GetUserName(User)'s Review</h2>
+}
+
+<hr />
+<div class="col-md-6">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Text"></label>
+            <textarea asp-for="Text" rows="10" class="form-control sc-input"></textarea>
+            <span asp-validation-for="Text" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Stars"></label>
+            <input asp-for="Stars" class="form-control sc-input" />
+            <span asp-validation-for="Stars" class="sc-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-default sc-btn sc-button-post">Post</button>
+    </form>
+</div>

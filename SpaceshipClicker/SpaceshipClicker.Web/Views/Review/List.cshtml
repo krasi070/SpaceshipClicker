@@ -5,17 +5,57 @@
 }
 
 <aside class="sc-review-filter">
+    <h2>Order</h2>
+    <hr />
+    <select class="form-control sc-input" onchange="location = this.value;">
+
+        @if (Model.Order == ReviewOrder.StarsAscending)
+        {
+            <option selected value="/Review/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
+        }
+        else
+        {
+            <option value="/Review/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
+        }
+
+        @if (Model.Order == ReviewOrder.StarsDescending)
+        {
+            <option selected value="/Review/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
+        }
+        else
+        {
+            <option value="/Review/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
+        }
+
+        @if (Model.Order == ReviewOrder.DateAscending)
+        {
+            <option selected value="/Review/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
+        }
+        else
+        {
+            <option value="/Review/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
+        }
+
+        @if (Model.Order == ReviewOrder.DateDescending)
+        {
+            <option selected value="/Review/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
+        }
+        else
+        {
+            <option value="/Review/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
+        }
+    </select>
     <h2>Filters</h2>
     <hr />
     <form method="get">
         <div class="form-group">
             <label asp-for="MinStars"></label>
-            <input asp-for="MinStars" value="0.5" class="form-control sc-input" />
+            <input asp-for="MinStars" class="form-control sc-input" />
             <span asp-validation-for="MinStars" class="sc-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="MaxStars"></label>
-            <input asp-for="MaxStars" value="5" class="form-control sc-input" />
+            <input asp-for="MaxStars" class="form-control sc-input" />
             <span asp-validation-for="MaxStars" class="sc-danger"></span>
         </div>
         <div class="form-group">

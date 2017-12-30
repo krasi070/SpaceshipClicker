@@ -158,6 +158,12 @@ footer {
     margin: 20px 0;
 }
 
+.sc-button-post {
+    width: 25%;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
 /*Scrolling animation*/
 .overlay {
     background: url('../images/spaceship_clicker_bg.png');
