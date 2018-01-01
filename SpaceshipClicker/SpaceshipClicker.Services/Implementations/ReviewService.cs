@@ -23,16 +23,16 @@
                 Text = text,
                 Score = score,
                 UserId = userId,
-                ReviewedOn = DateTime.Now
+                ReviewedOn = DateTime.Now,
+                IsApproved = true
             };
 
             this._db.Reviews.Add(newReview);
             this._db.SaveChanges();
         }
 
-        public IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order)
+        public IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order = ReviewOrder.DateDescending)
         {
-            // TODO: Fix Username not showing up bug
             var reviews = this._db.Reviews
                   .Where(r => r.IsApproved)
                   .Select(r => new DetailsReviewModel()

@@ -225,6 +225,10 @@ namespace SpaceshipClicker.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
                     b.ToTable("Reviews");
                 });
 
@@ -319,10 +323,6 @@ namespace SpaceshipClicker.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ReviewId")
-                        .IsUnique()
-                        .HasFilter("[ReviewId] IS NOT NULL");
-
                     b.ToTable("AspNetUsers");
                 });
 
@@ -396,19 +396,19 @@ namespace SpaceshipClicker.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("SpaceshipClicker.Data.Models.Review", b =>
+                {
+                    b.HasOne("SpaceshipClicker.Data.Models.User", "User")
+                        .WithOne("Review")
+                        .HasForeignKey("SpaceshipClicker.Data.Models.Review", "UserId");
+                });
+
             modelBuilder.Entity("SpaceshipClicker.Data.Models.Tweet", b =>
                 {
                     b.HasOne("SpaceshipClicker.Data.Models.Crewmate", "Crewmate")
                         .WithMany("Tweets")
                         .HasForeignKey("CrewmateId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SpaceshipClicker.Data.Models.User", b =>
-                {
-                    b.HasOne("SpaceshipClicker.Data.Models.Review", "Review")
-                        .WithOne("User")
-                        .HasForeignKey("SpaceshipClicker.Data.Models.User", "ReviewId");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,6 +7,7 @@
     using SpaceshipClicker.Services;
     using SpaceshipClicker.Services.Models.Reviews;
     using System;
+    using System.Linq;
 
     public class ReviewController : Controller
     {
@@ -50,7 +51,14 @@
         }
 
         public IActionResult Create()
-            => View();
+        {
+            if (this._reviews.GetAll().Any(r => r.ByUser == this._userManager.GetUserName(User)))
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Create(ReviewCreateViewModel model)

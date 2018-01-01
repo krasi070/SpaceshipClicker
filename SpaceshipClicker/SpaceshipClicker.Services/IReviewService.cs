@@ -8,7 +8,7 @@
     {
         IEnumerable<DefaultReviewModel> GetDefault(int amount = 3);
 
-        IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order);
+        IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order = ReviewOrder.DateDescending);
 
         IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
 
