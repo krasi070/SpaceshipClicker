@@ -9,8 +9,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(Constants.TweetMinTextLength)]
-        [MaxLength(Constants.TweetMaxTextLength)]
+        [MinLength(GlobalConstants.TweetMinTextLength)]
+        [MaxLength(GlobalConstants.TweetMaxTextLength)]
         public string Text { get; set; }
 
         public Emotion Emotion { get; set; }

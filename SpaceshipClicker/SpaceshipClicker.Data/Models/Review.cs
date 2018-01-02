@@ -8,11 +8,11 @@
     {
         public int Id { get; set; }
 
-        [MinLength(Constants.ReviewMinTextLength)]
-        [MaxLength(Constants.ReviewMaxTextLength)]
+        [MinLength(GlobalConstants.ReviewMinTextLength)]
+        [MaxLength(GlobalConstants.ReviewMaxTextLength)]
         public string Text { get; set; }
 
-        [Range(Constants.ReviewMinScore, Constants.ReviewMaxScore)]
+        [Range(GlobalConstants.ReviewMinScore, GlobalConstants.ReviewMaxScore)]
         public int Score { get; set; }
 
         public DateTime ReviewedOn { get; set; }

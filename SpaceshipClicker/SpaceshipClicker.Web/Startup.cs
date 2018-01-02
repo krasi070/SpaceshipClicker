@@ -3,7 +3,7 @@
     using Constants;
     using Data;
     using Data.Models;
-    using Extensions;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -32,7 +32,7 @@
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
-                    options.Password.RequiredLength = Constants.PasswordMinLength;
+                    options.Password.RequiredLength = GlobalConstants.PasswordMinLength;
                 })
                 .AddEntityFrameworkStores<SpaceshipClickerDbContext>()
                 .AddDefaultTokenProviders();
@@ -45,6 +45,8 @@
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDatabaseMigration();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,6 +64,10 @@
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

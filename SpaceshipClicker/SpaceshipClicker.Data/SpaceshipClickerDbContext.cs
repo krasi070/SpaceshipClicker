@@ -23,10 +23,10 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Review>()
-                .HasOne(r => r.User)
-                .WithOne(u => u.Review)
-                .HasForeignKey<User>(u => u.ReviewId);
+            builder.Entity<User>()
+                .HasOne(u => u.Review)
+                .WithOne(r => r.User)
+                .HasForeignKey<Review>(r => r.UserId);
 
             builder.Entity<BottleMessage>()
                 .HasOne(bm => bm.User)

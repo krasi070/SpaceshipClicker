@@ -6,7 +6,7 @@
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(Constants.UsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = Constants.UsernameMinLength)]
+        [StringLength(GlobalConstants.UsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = GlobalConstants.UsernameMinLength)]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
@@ -16,7 +16,7 @@
         public string Email { get; set; }
 
         [Required]
-        [StringLength(Constants.PasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = Constants.PasswordMinLength)]
+        [StringLength(GlobalConstants.PasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = GlobalConstants.PasswordMinLength)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

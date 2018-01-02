@@ -8,7 +8,7 @@
         public override bool IsValid(object value)
         {
             float stars = float.Parse(value.ToString());
-            for (float i = Constants.MinStars; i <= Constants.MaxStars; i += Constants.IntervalStars)
+            for (float i = GlobalConstants.MinStars; i <= GlobalConstants.MaxStars; i += GlobalConstants.IntervalStars)
             {
                 if (stars == i)
                 {

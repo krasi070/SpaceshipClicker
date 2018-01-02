@@ -1,4 +1,4 @@
-﻿namespace SpaceshipClicker.Web.Extensions
+﻿namespace SpaceshipClicker.Web.Infrastructure.Extensions
 {
     using Microsoft.Extensions.DependencyInjection;
     using SpaceshipClicker.Services;

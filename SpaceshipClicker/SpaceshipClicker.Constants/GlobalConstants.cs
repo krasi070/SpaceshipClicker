@@ -1,7 +1,9 @@
 ﻿namespace SpaceshipClicker.Constants
 {
-    public static class Constants
+    public static class GlobalConstants
     {
+        public const string AdministratorRole = "Administrator";
+
         public const int ReviewMaxScore = 10;
         public const int ReviewMinScore = 1;
 

@@ -10,7 +10,7 @@
         public string Email { get; set; }
 
         [Required]
-        [StringLength(Constants.PasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = Constants.PasswordMinLength)]
+        [StringLength(GlobalConstants.PasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = GlobalConstants.PasswordMinLength)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

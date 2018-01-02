@@ -8,8 +8,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(Constants.BottleMessageMinTextLength)]
-        [MaxLength(Constants.BottleMessageMaxTextLength)]
+        [MinLength(GlobalConstants.BottleMessageMinTextLength)]
+        [MaxLength(GlobalConstants.BottleMessageMaxTextLength)]
         public string Text { get; set; }
 
         public bool IsApproved { get; set; }

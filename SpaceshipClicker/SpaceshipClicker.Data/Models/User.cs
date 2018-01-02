@@ -7,20 +7,20 @@
 
     public class User : IdentityUser
     {
-        [MinLength(Constants.SpaceshipNameMinLength)]
-        [MaxLength(Constants.SpaceshipNameMaxLength)]
+        [MinLength(GlobalConstants.SpaceshipNameMinLength)]
+        [MaxLength(GlobalConstants.SpaceshipNameMaxLength)]
         public string SpaceshipName { get; set; }
 
-        [Range(Constants.MinUnits, long.MaxValue)]
+        [Range(GlobalConstants.MinUnits, long.MaxValue)]
         public long Units { get; set; }
 
-        [Range(Constants.MinUnits, long.MaxValue)]
+        [Range(GlobalConstants.MinUnits, long.MaxValue)]
         public long UnitsPerClick { get; set; }
 
-        [Range(Constants.MinUnits, long.MaxValue)]
+        [Range(GlobalConstants.MinUnits, long.MaxValue)]
         public long UnitsPerSecond { get; set; }
 
-        [Range(Constants.MinAiLevel, Constants.MaxAiLevel)]
+        [Range(GlobalConstants.MinAiLevel, GlobalConstants.MaxAiLevel)]
         public int AiLevel { get; set; }
 
         public bool HasBathroom { get; set; }

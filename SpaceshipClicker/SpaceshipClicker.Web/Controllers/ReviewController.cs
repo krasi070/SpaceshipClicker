@@ -1,6 +1,7 @@
 ﻿namespace SpaceshipClicker.Web.Controllers
 {
     using Data.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models.ReviewViewModels;
@@ -20,9 +21,15 @@
             this._reviews = reviews;
         }
 
+        [AllowAnonymous]
         [Route("Review/List/{order}")]
         public IActionResult List(string order, FilterViewModel model)
         {
+            if (string.IsNullOrEmpty(order))
+            {
+                order = ReviewOrder.DateDescending.ToString();
+            }
+
             object reviewObj = null;
             ReviewOrder reviewOrder = ReviewOrder.DateDescending;
             Enum.TryParse(typeof(ReviewOrder), order, out reviewObj);
@@ -50,6 +57,7 @@
             });
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             if (this._reviews.GetAll().Any(r => r.ByUser == this._userManager.GetUserName(User)))
@@ -61,6 +69,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(ReviewCreateViewModel model)
         {
             if (model == null)

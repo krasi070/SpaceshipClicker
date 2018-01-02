@@ -8,8 +8,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(Constants.NotificationMinTextLength)]
-        [MaxLength(Constants.NotificationMaxTextLength)]
+        [MinLength(GlobalConstants.NotificationMinTextLength)]
+        [MaxLength(GlobalConstants.NotificationMaxTextLength)]
         public string Text { get; set; }
 
         [Range(0, int.MaxValue)]

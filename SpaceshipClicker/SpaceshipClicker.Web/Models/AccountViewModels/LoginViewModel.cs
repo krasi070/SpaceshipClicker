@@ -6,7 +6,7 @@
     public class LoginViewModel
     {
         [Required]
-        [StringLength(Constants.UsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = Constants.UsernameMinLength)]
+        [StringLength(GlobalConstants.UsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = GlobalConstants.UsernameMinLength)]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 

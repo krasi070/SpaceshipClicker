@@ -6,8 +6,8 @@
 
     public class ReviewCreateViewModel
     {
-        [MinLength(Constants.ReviewMinTextLength)]
-        [MaxLength(Constants.ReviewMaxTextLength)]
+        [MinLength(GlobalConstants.ReviewMinTextLength)]
+        [MaxLength(GlobalConstants.ReviewMaxTextLength)]
         [Display(Name = "Review")]
         public string Text { get; set; }
 

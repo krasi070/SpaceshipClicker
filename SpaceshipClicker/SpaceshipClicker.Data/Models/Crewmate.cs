@@ -10,8 +10,8 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(Constants.CrewmateMinNameLength)]
-        [MaxLength(Constants.CrewmateMaxNameLength)]
+        [MinLength(GlobalConstants.CrewmateMinNameLength)]
+        [MaxLength(GlobalConstants.CrewmateMaxNameLength)]
         public string Name { get; set; }
 
         public Gender Gender { get; set; }
@@ -24,13 +24,13 @@
 
         public Crewmate Crush { get; set; }
 
-        [Range(Constants.CrewmateMinDepressionLevel, Constants.CrewmateMaxDepressionLevel)]
+        [Range(GlobalConstants.CrewmateMinDepressionLevel, GlobalConstants.CrewmateMaxDepressionLevel)]
         public int DepressionLevel { get; set; }
 
-        [Range(Constants.MinUnits, long.MaxValue)]
+        [Range(GlobalConstants.MinUnits, long.MaxValue)]
         public long UnitsPerSecond { get; set; }
 
-        [Range(Constants.MinUnits, long.MaxValue)]
+        [Range(GlobalConstants.MinUnits, long.MaxValue)]
         public long TotalUnitsEarned { get; set; }
 
         public string UserId { get; set; }
