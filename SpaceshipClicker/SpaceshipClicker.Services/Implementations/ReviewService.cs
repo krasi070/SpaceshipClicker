@@ -16,6 +16,8 @@
             this._db = db;
         }
 
+        public int Total { get; set; }
+
         public void Create(string text, int score, string userId)
         {
             Review newReview = new Review()
@@ -31,17 +33,116 @@
             this._db.SaveChanges();
         }
 
-        public IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order = ReviewOrder.DateDescending)
+        public IEnumerable<AdminDetailsReviewModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20)
         {
-            var reviews = this._db.Reviews
-                  .Where(r => r.IsApproved)
-                  .Select(r => new DetailsReviewModel()
-                  {
-                      Text = r.Text,
-                      Score = r.Score,
-                      ReviewedOn = r.ReviewedOn,
-                      ByUser = r.User.UserName
-                  });
+            List<AdminDetailsReviewModel> reviews = new List<AdminDetailsReviewModel>();
+            IEnumerable<AdminDetailsReviewModel> result = new List<AdminDetailsReviewModel>();
+            if (page > 0)
+            {
+                if (approved)
+                {
+                    reviews.AddRange(this._db.Reviews
+                        .Where(r => r.IsApproved)
+                        .Select(r => new AdminDetailsReviewModel()
+                        {
+                            Id = r.Id,
+                            Text = r.Text,
+                            Score = r.Score,
+                            ReviewedOn = r.ReviewedOn,
+                            ByUser = r.User.UserName,
+                            UserId = r.UserId,
+                            IsApproved = r.IsApproved,
+                            IsDefault = r.IsDefault
+                        }));
+                }
+
+                if (notApproved)
+                {
+                    reviews.AddRange(this._db.Reviews
+                        .Where(r => !r.IsApproved)
+                        .Select(r => new AdminDetailsReviewModel()
+                        {
+                            Id = r.Id,
+                            Text = r.Text,
+                            Score = r.Score,
+                            ReviewedOn = r.ReviewedOn,
+                            ByUser = r.User.UserName,
+                            UserId = r.UserId,
+                            IsApproved = r.IsApproved,
+                            IsDefault = r.IsDefault
+                        }));
+                }
+
+                if (@default && !notDefault)
+                {
+                    reviews = reviews
+                        .Where(r => r.IsDefault)
+                        .ToList();
+                }
+                else if (!@default && notDefault)
+                {
+                    reviews = reviews
+                        .Where(r => !r.IsDefault)
+                        .ToList();
+                }
+
+                this.Total = reviews.Count;
+                return reviews
+                    .OrderByDescending(r => r.ReviewedOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize);
+            }
+            else
+            {
+                result = this._db.Reviews
+                    .OrderByDescending(r => r.ReviewedOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(r => new AdminDetailsReviewModel()
+                    {
+                        Id = r.Id,
+                        Text = r.Text,
+                        Score = r.Score,
+                        ReviewedOn = r.ReviewedOn,
+                        ByUser = r.User.UserName,
+                        UserId = r.UserId,
+                        IsApproved = r.IsApproved,
+                        IsDefault = r.IsDefault
+                    });
+            }
+
+            return result;
+        }
+
+        public IEnumerable<DetailsReviewModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20)
+        {
+            IEnumerable<DetailsReviewModel> reviews = new List<DetailsReviewModel>();
+            if (page > 0)
+            {
+                reviews = this._db.Reviews
+                    .Where(r => r.IsApproved)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(r => new DetailsReviewModel()
+                    {
+                        Text = r.Text,
+                        Score = r.Score,
+                        ReviewedOn = r.ReviewedOn,
+                        ByUser = r.User.UserName
+                    });
+            }
+            else
+            {
+                reviews = this._db.Reviews
+                    .Where(r => r.IsApproved)
+                    .Select(r => new DetailsReviewModel()
+                    {
+                        Text = r.Text,
+                        Score = r.Score,
+                        ReviewedOn = r.ReviewedOn,
+                        ByUser = r.User.UserName
+                    });
+            }
 
             switch (order)
             {

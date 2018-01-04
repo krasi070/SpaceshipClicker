@@ -46,7 +46,7 @@
             {
                 return View(new ReviewListViewModel()
                 {
-                    Reviews = this._reviews.GetAll(reviewOrder)
+                    Reviews = this._reviews.GetAllApproved(reviewOrder)
                 });
             } 
 
@@ -60,7 +60,7 @@
         [Authorize]
         public IActionResult Create()
         {
-            if (this._reviews.GetAll().Any(r => r.ByUser == this._userManager.GetUserName(User)))
+            if (this._reviews.GetAllApproved().Any(r => r.ByUser == this._userManager.GetUserName(User)))
             {
                 return NotFound();
             }
@@ -84,7 +84,7 @@
 
             this._reviews.Create(model.Text, (int)Math.Round(model.Stars * 2), this._userManager.GetUserId(HttpContext.User));
 
-            return RedirectToAction(nameof(List), ReviewOrder.DateDescending.ToString());
+            return Redirect("List/DateDescending");
         }
     }
 }

@@ -147,6 +147,16 @@ footer {
     float: left;
 }
 
+.sc-admin-filters {
+    width: 20%;
+    float: left;
+}
+
+.sc-review-table {
+    width: 75%;
+    float: right;
+}
+
 .sc-review-list {
     width: 73%;
     float: right;
@@ -161,6 +171,20 @@ footer {
     width: 25%;
     margin-bottom: 25px;
     margin-top: 10px;
+}
+
+.sc-table > .sc-tbody > .sc-row:hover {
+    background-color: rgba(236, 240, 241, 0.1);
+}
+
+.sc-label {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.sc-checkbox {
+    width: 16px;
+    height: 16px;
 }
 
 /*Scrolling animation*/

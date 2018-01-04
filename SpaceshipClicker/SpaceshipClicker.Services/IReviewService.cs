@@ -6,9 +6,13 @@
 
     public interface IReviewService
     {
+        int Total { get; }
+
         IEnumerable<DefaultReviewModel> GetDefault(int amount = 3);
 
-        IEnumerable<DetailsReviewModel> GetAll(ReviewOrder order = ReviewOrder.DateDescending);
+        IEnumerable<DetailsReviewModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20);
+
+        IEnumerable<AdminDetailsReviewModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20);
 
         IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
 

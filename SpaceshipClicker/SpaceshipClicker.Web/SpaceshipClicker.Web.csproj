@@ -23,8 +23,4 @@
     <ProjectReference Include="..\SpaceshipClicker.Services\SpaceshipClicker.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\" />
-  </ItemGroup>
-
 </Project>
