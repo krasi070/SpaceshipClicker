@@ -8,7 +8,6 @@
     using SpaceshipClicker.Services;
     using SpaceshipClicker.Services.Models.Reviews;
     using System;
-    using System.Linq;
 
     public class ReviewsController : Controller
     {
@@ -58,9 +57,9 @@
         }
 
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Post()
         {
-            if (this._reviews.GetAllApproved().Any(r => r.ByUser == this._userManager.GetUserName(User)))
+            if (this._reviews.HasUserPostedReview(this._userManager.GetUserName(User)))
             {
                 return NotFound();
             }
@@ -70,7 +69,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(ReviewFormViewModel model)
+        public IActionResult Post(ReviewFormViewModel model)
         {
             if (model == null)
             {
@@ -90,17 +89,7 @@
         [Authorize]
         public IActionResult Edit(int id)
         {
-            var review = this._reviews.GetById(id);
-            if (review == null)
-            {
-                return NotFound();
-            }
-
-            return View(new ReviewFormViewModel()
-            {
-                Text = review.Text,
-                Stars = review.Score / 2.0f
-            });
+            return this.EditDeleteReview(id, false);
         }
 
         [HttpPost]
@@ -115,6 +104,52 @@
             this._reviews.Edit(id, model.Text, (int)(model.Stars * 2));
 
             return Redirect("/Reviews/List/DateDescending");
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            return this.EditDeleteReview(id, true);
+        }
+
+        [Authorize]
+        public IActionResult Destroy(int id)
+        {
+            this._reviews.Delete(id);
+
+            return Redirect("/Reviews/List/DateDescending");
+        }
+
+        private IActionResult EditDeleteReview(int id, bool isDelete)
+        {
+            var review = this._reviews.GetById(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            if (review.UserId != this._userManager.GetUserId(User))
+            {
+                return Redirect("/Account/AccessDenied");
+            }
+
+            if (isDelete)
+            {
+                return View(new ReviewDeleteViewModel()
+                {
+                    Id = review.Id,
+                    Text = review.Text,
+                    Stars = review.Score / 2.0f
+                });
+            }
+            else
+            {
+                return View(new ReviewFormViewModel()
+                {
+                    Text = review.Text,
+                    Stars = review.Score / 2.0f
+                });
+            }
         }
     }
 }

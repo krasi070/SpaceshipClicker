@@ -21,6 +21,10 @@
 
         void Edit(int id, string text, int score);
 
+        void Delete(int id);
+
+        bool HasUserPostedReview(string username);
+
         void ChangeStates(int id, bool approved, bool @default);
 
         AdminDetailsReviewModel GetById(int id);

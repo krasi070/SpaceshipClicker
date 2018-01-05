@@ -1,0 +1,27 @@
+﻿@model ReviewDeleteViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Delete Review - Spaceship Clicker";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h2>@UserManager.GetUserName(User)'s Review</h2>
+}
+
+<hr />
+<div class="col-md-6">
+    <form>
+        <div class="form-group">
+            <label asp-for="Text"></label>
+            <textarea asp-for="Text" disabled rows="10" class="form-control sc-input sc-input-danger"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="Stars"></label>
+            <input asp-for="Stars" disabled class="form-control sc-input sc-input-danger" />
+        </div>
+        <a href="/Reviews/Destroy/@Model.Id" class="btn btn-default sc-btn-review-form sc-btn-danger">Delete</a>
+    </form>
+</div>

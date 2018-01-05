@@ -167,7 +167,7 @@ li.sc-review:hover {
     margin: 20px 0;
 }
 
-.sc-button-post {
+.sc-btn-review-form {
     width: 25%;
     margin-bottom: 25px;
     margin-top: 10px;
@@ -196,6 +196,24 @@ li.sc-review:hover {
 .sc-review-states-form {
     margin-top: 85px;
 }
+
+.sc-btn-danger {
+    color: #ECF0F1;
+    background-color: #E74C3C;
+    border: none;
+    border-bottom: 2px solid #ECF0F1;
+    border-radius: 0;
+}
+
+.sc-btn-danger:hover {
+    color: #E74C3C;
+    background-color: #ECF0F1;
+    border-color: #E74C3C;
+}
+
+.sc-input.sc-input-danger {
+    border-color: #E74C3C;
+} 
 
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,

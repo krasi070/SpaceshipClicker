@@ -102,7 +102,8 @@
                     @review.Text
                     @if (SignInManager.IsSignedIn(User) && @UserManager.GetUserName(User) == review.ByUser)
                     {
-                        <a href="/Reviews/Edit/@review.Id" class="sc-link">Edit</a>
+                        @:[<a href="/Reviews/Edit/@review.Id" class="sc-link">Edit</a>]
+                        @:[<a href="/Reviews/Delete/@review.Id">Delete</a>]
                     }
                 </p>
             </li>

@@ -62,6 +62,21 @@
             this._db.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+            var review = this._db.Reviews.Find(id);
+            if (review == null)
+            {
+                return;
+            }
+
+            this._db.Reviews.Remove(review);
+            this._db.SaveChanges();
+        }
+
+        public bool HasUserPostedReview(string username)
+            => this._db.Reviews.Any(r => r.User.UserName == username);
+
         public AdminDetailsReviewModel GetById(int id)
             => this._db.Reviews
                 .Where(r => r.Id == id)

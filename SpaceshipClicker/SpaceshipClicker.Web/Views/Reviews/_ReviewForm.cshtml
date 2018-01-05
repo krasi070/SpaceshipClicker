@@ -9,7 +9,7 @@
 
 <hr />
 <div class="col-md-6">
-    <form method="post">
+    <form asp-controller="Reviews" asp-action="@ViewData["Action"]">
         <div class="form-group">
             <label asp-for="Text"></label>
             <textarea asp-for="Text" rows="10" class="form-control sc-input"></textarea>
@@ -20,6 +20,6 @@
             <input asp-for="Stars" class="form-control sc-input" />
             <span asp-validation-for="Stars" class="sc-danger"></span>
         </div>
-        <button type="submit" class="btn btn-default sc-btn sc-button-post">@ViewData["ButtonText"]</button>
+        <button type="submit" class="btn btn-default sc-btn sc-btn-review-form">@ViewData["Action"]</button>
     </form>
 </div>
