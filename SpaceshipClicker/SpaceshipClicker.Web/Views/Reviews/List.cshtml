@@ -1,4 +1,6 @@
 ﻿@model ReviewListViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Reviews - Spaceship Clicker";
@@ -10,38 +12,38 @@
     <select class="form-control sc-input" onchange="location = this.value;">
         @if (Model.Order == ReviewOrder.StarsAscending)
         {
-            <option selected value="/Review/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
+            <option selected value="/Reviews/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
         }
         else
         {
-            <option value="/Review/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
+            <option value="/Reviews/List/StarsAscending@(Context.Request.QueryString.Value)">Stars Ascending</option>
         }
 
         @if (Model.Order == ReviewOrder.StarsDescending)
         {
-            <option selected value="/Review/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
+            <option selected value="/Reviews/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
         }
         else
         {
-            <option value="/Review/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
+            <option value="/Reviews/List/StarsDescending@(Context.Request.QueryString.Value)">Stars Descending</option>
         }
 
         @if (Model.Order == ReviewOrder.DateAscending)
         {
-            <option selected value="/Review/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
+            <option selected value="/Reviews/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
         }
         else
         {
-            <option value="/Review/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
+            <option value="/Reviews/List/DateAscending@(Context.Request.QueryString.Value)">Date Ascending</option>
         }
 
         @if (Model.Order == ReviewOrder.DateDescending)
         {
-            <option selected value="/Review/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
+            <option selected value="/Reviews/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
         }
         else
         {
-            <option value="/Review/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
+            <option value="/Reviews/List/DateDescending@(Context.Request.QueryString.Value)">Date Descending</option>
         }
     </select>
     <h2>Filters</h2>
@@ -96,7 +98,13 @@
                 <span>By @review.ByUser</span>
                 <br />
                 <span>Posted on @review.ReviewedOn.Day/@review.ReviewedOn.Month/@review.ReviewedOn.Year</span>
-                <p class="sc-review-text">@review.Text</p>
+                <p class="sc-review-text">
+                    @review.Text
+                    @if (SignInManager.IsSignedIn(User) && @UserManager.GetUserName(User) == review.ByUser)
+                    {
+                        <a href="/Reviews/Edit/@review.Id" class="sc-link">Edit</a>
+                    }
+                </p>
             </li>
         }
     </ul>

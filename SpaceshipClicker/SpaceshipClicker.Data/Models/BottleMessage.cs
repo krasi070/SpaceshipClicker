@@ -5,7 +5,7 @@
 
     public class BottleMessage
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [MinLength(GlobalConstants.BottleMessageMinTextLength)]

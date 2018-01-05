@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Services
 {
+    using Data.Models;
     using Models.Reviews;
     using System;
     using System.Collections.Generic;
@@ -17,5 +18,11 @@
         IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
 
         void Create(string text, int score, string userId);
+
+        void Edit(int id, string text, int score);
+
+        void ChangeStates(int id, bool approved, bool @default);
+
+        AdminDetailsReviewModel GetById(int id);
     }
 }

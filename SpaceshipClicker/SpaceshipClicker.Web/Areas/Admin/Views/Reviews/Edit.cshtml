@@ -1,0 +1,40 @@
+﻿@model ReviewEditViewModel
+
+@{ 
+    ViewData["Title"] = Model.Username + "'s Review - Spaceship Clicker";
+    int reviewScore = (int)(Model.Stars * 2);
+}
+
+<h2>@Model.Username's Review</h2>
+<hr />
+<div class="sc-review col-md-10">
+    <p class="sc-review-stars">
+        @for (int i = 0; i < reviewScore / 2; i++)
+        {
+            <i class="fa fa-star" aria-hidden="true"></i>
+        }
+
+        @if (reviewScore % 2 == 1)
+        {
+            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+        }
+
+        @for (int i = 0; i < (GlobalConstants.ReviewMaxScore - reviewScore) / 2; i++)
+        {
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        }
+    </p>
+    <span>Posted on @Model.ReviewedOn.Day/@Model.ReviewedOn.Month/@Model.ReviewedOn.Year</span>
+    <p class="sc-review-text">@Model.Text</p>
+</div>
+<form method="post" class="col-md-2 sc-review-states-form">
+    <div class="form-group">
+        <input asp-for="IsApproved" class="sc-checkbox" />
+        <label asp-for="IsApproved" class="sc-label"></label>
+    </div>
+    <div class="form-group">
+        <input asp-for="IsDefault" class="sc-checkbox" />
+        <label asp-for="IsDefault" class="sc-label"></label>
+    </div>
+    <button type="submit" class="btn btn-default sc-btn sc-btn-apply">Edit</button>
+</form>

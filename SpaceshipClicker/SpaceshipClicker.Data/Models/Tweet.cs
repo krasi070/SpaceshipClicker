@@ -18,9 +18,5 @@
         public int MinDepressionLevel { get; set; }
 
         public int MaxDepressionLevel { get; set; }
-
-        public int CrewmateId { get; set; }
-
-        public Crewmate Crewmate { get; set; }
     }
 }

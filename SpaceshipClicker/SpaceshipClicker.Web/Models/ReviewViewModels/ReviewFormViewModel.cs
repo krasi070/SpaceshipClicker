@@ -4,7 +4,7 @@
     using Infrastructure.Attributes;
     using System.ComponentModel.DataAnnotations;
 
-    public class ReviewCreateViewModel
+    public class ReviewFormViewModel
     {
         [MinLength(GlobalConstants.ReviewMinTextLength)]
         [MaxLength(GlobalConstants.ReviewMaxTextLength)]

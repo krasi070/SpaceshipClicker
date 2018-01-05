@@ -38,11 +38,6 @@
                 .WithMany(u => u.Notifications)
                 .HasForeignKey(n => n.UserId);
 
-            builder.Entity<Tweet>()
-                .HasOne(t => t.Crewmate)
-                .WithMany(c => c.Tweets)
-                .HasForeignKey(t => t.CrewmateId);
-
             builder.Entity<Crewmate>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Crew)

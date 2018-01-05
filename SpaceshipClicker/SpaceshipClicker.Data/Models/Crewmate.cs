@@ -2,7 +2,6 @@
 {
     using Constants;
     using Enums;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Crewmate
@@ -36,7 +35,5 @@
         public string UserId { get; set; }
 
         public User User { get; set; }
-
-        public List<Tweet> Tweets { get; set; } = new List<Tweet>();
     }
 }

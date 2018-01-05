@@ -124,7 +124,7 @@ footer {
     padding: 10px 10px 60px 10px;
 }
 
-.sc-review:hover {
+li.sc-review:hover {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -185,6 +185,23 @@ footer {
 .sc-checkbox {
     width: 16px;
     height: 16px;
+}
+
+.sc-dropdown-menu {
+    border-radius: 0;
+    background-color: #3498DB;
+    color: #ECF0F1;
+}
+
+.sc-review-states-form {
+    margin-top: 85px;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #ECF0F1;
+    color: #3498DB;
 }
 
 /*Scrolling animation*/

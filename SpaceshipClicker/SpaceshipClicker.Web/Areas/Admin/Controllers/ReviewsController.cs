@@ -10,19 +10,19 @@
 
     [Area("Admin")]
     [Route("Admin")]
-    public class ReviewController : Controller
+    [Authorize(Roles = GlobalConstants.AdministratorRole)]
+    public class ReviewsController : Controller
     {
         private const int PageSize = 20;
 
         private readonly IReviewService _reviews;
 
-        public ReviewController(IReviewService reviews)
+        public ReviewsController(IReviewService reviews)
         {
             this._reviews = reviews;
         }
-
-        [Authorize(Roles = GlobalConstants.AdministratorRole)]
-        [Route("Review/List/{page}")]
+        
+        [Route("Reviews/List/{page}")]
         public IActionResult List(int page, ReviewPageFilterViewModel model)
         {
             if (page < 1)
@@ -48,6 +48,42 @@
                 DisplayDefault = model.DisplayDefault,
                 DisplayNotDefault = model.DisplayNotDefault
             });
+        }
+
+        [Route("Reviews/Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var review = this._reviews.GetById(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            return View(new ReviewEditViewModel()
+            {
+                Id = review.Id,
+                Text = review.Text,
+                Stars = review.Score / 2.0f,
+                ReviewedOn = review.ReviewedOn,
+                UserId = review.UserId,
+                Username = review.ByUser,
+                IsApproved = review.IsApproved,
+                IsDefault = review.IsDefault
+            });
+        }
+
+        [HttpPost]
+        [Route("Reviews/Edit/{id}")]
+        public IActionResult Edit(int id, ReviewStatesViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this._reviews.ChangeStates(id, model.IsApproved, model.IsDefault);
+
+            return Redirect("/Admin/Reviews/List/1");
         }
     }
 }
