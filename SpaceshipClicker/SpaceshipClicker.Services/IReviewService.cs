@@ -9,13 +9,13 @@
     {
         int Total { get; }
 
-        IEnumerable<DefaultReviewModel> GetDefault(int amount = 3);
+        IEnumerable<ReviewDefaultModel> GetDefault(int amount = 3);
 
-        IEnumerable<DetailsReviewModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20);
+        IEnumerable<ReviewDetailsModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20);
 
-        IEnumerable<AdminDetailsReviewModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20);
+        IEnumerable<ReviewAdminDetailsModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20);
 
-        IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
+        IEnumerable<ReviewDetailsModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null);
 
         void Create(string text, int score, string userId);
 
@@ -27,6 +27,6 @@
 
         void ChangeStates(int id, bool approved, bool @default);
 
-        AdminDetailsReviewModel GetById(int id);
+        ReviewAdminDetailsModel GetById(int id);
     }
 }

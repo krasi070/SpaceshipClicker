@@ -1,11 +1,11 @@
-﻿namespace SpaceshipClicker.Web.Areas.Admin.Models.ReviewViewModels
+﻿namespace SpaceshipClicker.Web.Areas.Admin.Models.UserViewModels
 {
-    using SpaceshipClicker.Services.Models.Reviews;
+    using SpaceshipClicker.Services.Models.Users;
     using System.Collections.Generic;
 
-    public class ReviewPageViewModel : ReviewPageFilterViewModel
+    public class UserPageViewModel : UserSearchViewModel
     {
-        public IEnumerable<ReviewAdminDetailsModel> Reviews { get; set; }
+        public IEnumerable<UserListingModel> Users { get; set; }
 
         public int CurrentPage { get; set; }
 

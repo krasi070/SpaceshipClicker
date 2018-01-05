@@ -1,0 +1,50 @@
+﻿@model UserDetailsModel
+
+@{
+    ViewData["Title"] = "User Details - Spaceship Clicker";
+    int reviewScore = (int)(Model.Stars * 2);
+}
+
+<h2>@Model.Username</h2>
+<hr />
+<ul class="col-md-6 sc-list">
+    <li>Email: @Model.Email</li>
+    <li>Spaceship Name: @(Model.SpaceshipName != null ? Model.SpaceshipName : "[NONE]")</li>
+    <li>Units: @Model.Units</li>
+    <li>Units Per Click: @Model.UnitsPerClick</li>
+    <li>Units Per Second: @Model.UnitsPerSecond</li>
+    <li>AI Level: @Model.AiLevel</li>
+    <li>Bathroom Upgrade: @(Model.HasBathroom ? "Bought" : "Not Bought")</li>
+    <li>Coffee Upgrade: @(Model.HasCoffee ? "Bought" : "Not Bought")</li>
+    <li>Enhancements Upgrade: @(Model.HasEnhancements ? "Bought" : "Not Bought")</li>
+</ul>
+@if (Model.ReviewId != null)
+{
+<div class="col-md-6">
+    <p class="sc-review-stars">
+        @for (int i = 0; i < reviewScore / 2; i++)
+        {
+            <i class="fa fa-star" aria-hidden="true"></i>
+        }
+
+        @if (reviewScore % 2 == 1)
+        {
+            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+        }
+
+        @for (int i = 0; i < (GlobalConstants.ReviewMaxScore - reviewScore) / 2; i++)
+        {
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        }
+        </p>
+        <span>Posted on @Model.ReviewedOn.Day/@Model.ReviewedOn.Month/@Model.ReviewedOn.Year</span>
+        <p class="sc-review-text">
+            @Model.Review
+            [<a href="/Admin/Reviews/Edit/@Model.ReviewId" class="sc-link">Edit</a>]
+        </p>
+</div>
+}
+else
+{
+    <span class="sc-review-text">No Review</span>
+}

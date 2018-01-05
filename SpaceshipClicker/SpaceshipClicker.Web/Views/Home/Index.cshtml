@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DefaultReviewModel> 
+﻿@model IEnumerable<ReviewDefaultModel> 
 
 @{
     ViewData["Title"] = "Spaceship Clicker";
@@ -13,7 +13,7 @@
         }
     </ol>
     <div class="carousel-inner" role="listbox">
-        @foreach (DefaultReviewModel review in Model)
+        @foreach (ReviewDefaultModel review in Model)
         {
             <div class="item @(isFirstReview ? "active" : string.Empty)">
                 <img src="~/images/transparent_banner.png" alt="ASP.NET" class="img-responsive" />

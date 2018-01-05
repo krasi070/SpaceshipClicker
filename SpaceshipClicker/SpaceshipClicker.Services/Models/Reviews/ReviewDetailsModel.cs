@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class DetailsReviewModel : DefaultReviewModel
+    public class ReviewDetailsModel : ReviewDefaultModel
     {
         public int Id { get; set; }
 

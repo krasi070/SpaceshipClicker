@@ -31,6 +31,10 @@
 
             this._db.Reviews.Add(newReview);
             this._db.SaveChanges();
+
+            var user = this._db.Users.Find(userId);
+            user.ReviewId = user.Review.Id;
+            this._db.SaveChanges();
         }
 
         public void ChangeStates(int id, bool approved, bool @default)
@@ -70,6 +74,10 @@
                 return;
             }
 
+            var user = this._db.Users.Find(review.UserId);
+            user.ReviewId = null;
+            this._db.SaveChanges();
+
             this._db.Reviews.Remove(review);
             this._db.SaveChanges();
         }
@@ -77,10 +85,10 @@
         public bool HasUserPostedReview(string username)
             => this._db.Reviews.Any(r => r.User.UserName == username);
 
-        public AdminDetailsReviewModel GetById(int id)
+        public ReviewAdminDetailsModel GetById(int id)
             => this._db.Reviews
                 .Where(r => r.Id == id)
-                .Select(r => new AdminDetailsReviewModel()
+                .Select(r => new ReviewAdminDetailsModel()
                 {
                     Id = r.Id,
                     Text = r.Text,
@@ -93,15 +101,15 @@
                 })
                 .FirstOrDefault();
 
-        public IEnumerable<AdminDetailsReviewModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20)
+        public IEnumerable<ReviewAdminDetailsModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20)
         {
-            List<AdminDetailsReviewModel> reviews = new List<AdminDetailsReviewModel>();
-            IEnumerable<AdminDetailsReviewModel> result = new List<AdminDetailsReviewModel>();
+            List<ReviewAdminDetailsModel> reviews = new List<ReviewAdminDetailsModel>();
+            IEnumerable<ReviewAdminDetailsModel> result = new List<ReviewAdminDetailsModel>();
             if (approved)
             {
                 reviews.AddRange(this._db.Reviews
                     .Where(r => r.IsApproved)
-                    .Select(r => new AdminDetailsReviewModel()
+                    .Select(r => new ReviewAdminDetailsModel()
                     {
                         Id = r.Id,
                         Text = r.Text,
@@ -118,7 +126,7 @@
             {
                 reviews.AddRange(this._db.Reviews
                     .Where(r => !r.IsApproved)
-                    .Select(r => new AdminDetailsReviewModel()
+                    .Select(r => new ReviewAdminDetailsModel()
                     {
                         Id = r.Id,
                         Text = r.Text,
@@ -152,16 +160,16 @@
                 .Take(pageSize);
         }
 
-        public IEnumerable<DetailsReviewModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20)
+        public IEnumerable<ReviewDetailsModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20)
         {
-            IEnumerable<DetailsReviewModel> reviews = new List<DetailsReviewModel>();
+            IEnumerable<ReviewDetailsModel> reviews = new List<ReviewDetailsModel>();
             if (page > 0)
             {
                 reviews = this._db.Reviews
                     .Where(r => r.IsApproved)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => new DetailsReviewModel()
+                    .Select(r => new ReviewDetailsModel()
                     {
                         Id = r.Id,
                         Text = r.Text,
@@ -174,7 +182,7 @@
             {
                 reviews = this._db.Reviews
                     .Where(r => r.IsApproved)
-                    .Select(r => new DetailsReviewModel()
+                    .Select(r => new ReviewDetailsModel()
                     {
                         Id = r.Id,
                         Text = r.Text,
@@ -199,18 +207,18 @@
             }
         }
 
-        public IEnumerable<DefaultReviewModel> GetDefault(int amount = 3)
+        public IEnumerable<ReviewDefaultModel> GetDefault(int amount = 3)
             => this._db.Reviews
                 .Where(r => r.IsDefault)
                 .OrderByDescending(r => r.ReviewedOn)
                 .Take(amount)
-                .Select(r => new DefaultReviewModel()
+                .Select(r => new ReviewDefaultModel()
                 {
                     Text = r.Text,
                     Score = r.Score
                 });
 
-        public IEnumerable<DetailsReviewModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null)
+        public IEnumerable<ReviewDetailsModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null)
         {
             if (minStars == null)
             {
@@ -237,7 +245,7 @@
                 .Where(r => r.Score >= minStars * 2 && r.Score <= maxStars * 2)
                 .Where(r => r.ReviewedOn.CompareTo(from) >= 0)
                 .Where(r => r.ReviewedOn.CompareTo(to) <= 0)
-                .Select(r => new DetailsReviewModel()
+                .Select(r => new ReviewDetailsModel()
                 {
                     Id = r.Id,
                     Text = r.Text,

@@ -22,7 +22,7 @@
 
         [AllowAnonymous]
         [Route("Reviews/List/{order}")]
-        public IActionResult List(string order, FilterViewModel model)
+        public IActionResult List(string order, ReviewFilterViewModel model)
         {
             if (string.IsNullOrEmpty(order))
             {

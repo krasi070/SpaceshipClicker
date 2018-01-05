@@ -1,6 +1,6 @@
 ﻿namespace SpaceshipClicker.Services.Models.Reviews
 {
-    public class AdminDetailsReviewModel : DetailsReviewModel
+    public class ReviewAdminDetailsModel : ReviewDetailsModel
     {
         public int Id { get; set; }
 

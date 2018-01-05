@@ -100,10 +100,14 @@
                 <span>Posted on @review.ReviewedOn.Day/@review.ReviewedOn.Month/@review.ReviewedOn.Year</span>
                 <p class="sc-review-text">
                     @review.Text
+                    @if (User.IsInRole(GlobalConstants.AdministratorRole))
+                    { 
+                        @:[<a href="/Admin/Reviews/Edit/@review.Id" class="sc-link">States</a>]
+                    }
                     @if (SignInManager.IsSignedIn(User) && @UserManager.GetUserName(User) == review.ByUser)
                     {
                         @:[<a href="/Reviews/Edit/@review.Id" class="sc-link">Edit</a>]
-                        @:[<a href="/Reviews/Delete/@review.Id">Delete</a>]
+                        @:[<a href="/Reviews/Delete/@review.Id" class="sc-link">Delete</a>]
                     }
                 </p>
             </li>

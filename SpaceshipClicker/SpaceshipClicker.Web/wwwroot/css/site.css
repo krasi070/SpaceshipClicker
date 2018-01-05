@@ -152,7 +152,7 @@ li.sc-review:hover {
     float: left;
 }
 
-.sc-review-table {
+.sc-table-container {
     width: 75%;
     float: right;
 }
@@ -213,13 +213,14 @@ li.sc-review:hover {
 
 .sc-input.sc-input-danger {
     border-color: #E74C3C;
-} 
+}
 
-.navbar-inverse .navbar-nav > .open > a,
-.navbar-inverse .navbar-nav > .open > a:hover,
-.navbar-inverse .navbar-nav > .open > a:focus {
-    background-color: #ECF0F1;
-    color: #3498DB;
+.sc-list {
+    list-style-type: none;
+}
+
+.sc-list > li {
+    font-size: 20px;
 }
 
 /*Scrolling animation*/
