@@ -1,11 +1,14 @@
 ﻿namespace SpaceshipClicker.Services.Implementations
 {
+    using AutoMapper.QueryableExtensions;
     using Data;
     using Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using SpaceshipClicker.Services.Models.Reviews;
+    using System.Threading.Tasks;
 
     public class ReviewService : IReviewService
     {
@@ -18,7 +21,7 @@
 
         public int Total { get; set; }
 
-        public void Create(string text, int score, string userId)
+        public async Task CreateAsync(string text, int score, string userId)
         {
             Review newReview = new Review()
             {
@@ -30,16 +33,16 @@
             };
 
             this._db.Reviews.Add(newReview);
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
 
             var user = this._db.Users.Find(userId);
             user.ReviewId = user.Review.Id;
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
         }
 
-        public void ChangeStates(int id, bool approved, bool @default)
+        public async Task ChangeStatesAsync(int id, bool approved, bool @default)
         {
-            var review = this._db.Reviews.Find(id);
+            var review = await this._db.Reviews.FindAsync(id);
             if (review == null)
             {
                 return;
@@ -48,12 +51,12 @@
             review.IsApproved = approved;
             review.IsDefault = @default;
 
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
         }
 
-        public void Edit(int id, string text, int score)
+        public async Task EditAsync(int id, string text, int score)
         {
-            var review = this._db.Reviews.Find(id);
+            var review = await this._db.Reviews.FindAsync(id);
             if (review == null)
             {
                 return;
@@ -63,80 +66,51 @@
             review.Score = score;
             review.ReviewedOn = DateTime.Now;
 
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var review = this._db.Reviews.Find(id);
+            var review = await this._db.Reviews.FindAsync(id);
             if (review == null)
             {
                 return;
             }
 
-            var user = this._db.Users.Find(review.UserId);
+            var user = await this._db.Users.FindAsync(review.UserId);
             user.ReviewId = null;
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
 
             this._db.Reviews.Remove(review);
-            this._db.SaveChanges();
+            await this._db.SaveChangesAsync();
         }
 
-        public bool HasUserPostedReview(string username)
-            => this._db.Reviews.Any(r => r.User.UserName == username);
+        public async Task<bool> HasUserPostedReviewAsync(string username)
+            => await this._db.Reviews.AnyAsync(r => r.User.UserName == username);
 
-        public ReviewAdminDetailsModel GetById(int id)
-            => this._db.Reviews
+        public async Task<ReviewAdminDetailsModel> GetByIdAsync(int id)
+            => await this._db.Reviews
                 .Where(r => r.Id == id)
-                .Select(r => new ReviewAdminDetailsModel()
-                {
-                    Id = r.Id,
-                    Text = r.Text,
-                    Score = r.Score,
-                    ReviewedOn = r.ReviewedOn,
-                    ByUser = r.User.UserName,
-                    UserId = r.UserId,
-                    IsApproved = r.IsApproved,
-                    IsDefault = r.IsDefault
-                })
-                .FirstOrDefault();
+                .ProjectTo<ReviewAdminDetailsModel>()
+                .FirstOrDefaultAsync();
 
-        public IEnumerable<ReviewAdminDetailsModel> GetAllWithDetails(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20)
+        public async Task<IEnumerable<ReviewAdminDetailsModel>> GetAllWithDetailsAsync(bool approved, bool notApproved, bool @default, bool notDefault, int page = 0, int pageSize = 20)
         {
             List<ReviewAdminDetailsModel> reviews = new List<ReviewAdminDetailsModel>();
-            IEnumerable<ReviewAdminDetailsModel> result = new List<ReviewAdminDetailsModel>();
             if (approved)
             {
-                reviews.AddRange(this._db.Reviews
+                reviews.AddRange(await this._db.Reviews
                     .Where(r => r.IsApproved)
-                    .Select(r => new ReviewAdminDetailsModel()
-                    {
-                        Id = r.Id,
-                        Text = r.Text,
-                        Score = r.Score,
-                        ReviewedOn = r.ReviewedOn,
-                        ByUser = r.User.UserName,
-                        UserId = r.UserId,
-                        IsApproved = r.IsApproved,
-                        IsDefault = r.IsDefault
-                    }));
+                    .ProjectTo<ReviewAdminDetailsModel>()
+                    .ToListAsync());
             }
 
             if (notApproved)
             {
-                reviews.AddRange(this._db.Reviews
+                reviews.AddRange(await this._db.Reviews
                     .Where(r => !r.IsApproved)
-                    .Select(r => new ReviewAdminDetailsModel()
-                    {
-                        Id = r.Id,
-                        Text = r.Text,
-                        Score = r.Score,
-                        ReviewedOn = r.ReviewedOn,
-                        ByUser = r.User.UserName,
-                        UserId = r.UserId,
-                        IsApproved = r.IsApproved,
-                        IsDefault = r.IsDefault
-                    }));
+                    .ProjectTo<ReviewAdminDetailsModel>()
+                    .ToListAsync());
             }
 
             if (@default && !notDefault)
@@ -160,36 +134,24 @@
                 .Take(pageSize);
         }
 
-        public IEnumerable<ReviewDetailsModel> GetAllApproved(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20)
+        public async Task<IEnumerable<ReviewDetailsModel>> GetAllApprovedAsync(ReviewOrder order = ReviewOrder.DateDescending, int page = 0, int pageSize = 20)
         {
             IEnumerable<ReviewDetailsModel> reviews = new List<ReviewDetailsModel>();
             if (page > 0)
             {
-                reviews = this._db.Reviews
+                reviews = await this._db.Reviews
                     .Where(r => r.IsApproved)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => new ReviewDetailsModel()
-                    {
-                        Id = r.Id,
-                        Text = r.Text,
-                        Score = r.Score,
-                        ReviewedOn = r.ReviewedOn,
-                        ByUser = r.User.UserName
-                    });
+                    .ProjectTo<ReviewDetailsModel>()
+                    .ToListAsync();
             }
             else
             {
-                reviews = this._db.Reviews
+                reviews = await this._db.Reviews
                     .Where(r => r.IsApproved)
-                    .Select(r => new ReviewDetailsModel()
-                    {
-                        Id = r.Id,
-                        Text = r.Text,
-                        Score = r.Score,
-                        ReviewedOn = r.ReviewedOn,
-                        ByUser = r.User.UserName
-                    });
+                    .ProjectTo<ReviewDetailsModel>()
+                    .ToListAsync();
             }
 
             switch (order)
@@ -207,18 +169,15 @@
             }
         }
 
-        public IEnumerable<ReviewDefaultModel> GetDefault(int amount = 3)
-            => this._db.Reviews
+        public async Task<IEnumerable<ReviewDefaultModel>> GetDefaultAsync(int amount = 3)
+            => await this._db.Reviews
                 .Where(r => r.IsDefault)
                 .OrderByDescending(r => r.ReviewedOn)
                 .Take(amount)
-                .Select(r => new ReviewDefaultModel()
-                {
-                    Text = r.Text,
-                    Score = r.Score
-                });
+                .ProjectTo<ReviewDefaultModel>()
+                .ToListAsync();
 
-        public IEnumerable<ReviewDetailsModel> GetFilteredReviews(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null)
+        public async Task<IEnumerable<ReviewDetailsModel>> GetFilteredReviewsAsync(ReviewOrder order, float? minStars = null, float? maxStars = null, DateTime? from = null, DateTime? to = null)
         {
             if (minStars == null)
             {
@@ -240,19 +199,13 @@
                 to = DateTime.Now;
             }
 
-            var reviews = this._db.Reviews
+            var reviews = await this._db.Reviews
                 .Where(r => r.IsApproved)
                 .Where(r => r.Score >= minStars * 2 && r.Score <= maxStars * 2)
                 .Where(r => r.ReviewedOn.CompareTo(from) >= 0)
                 .Where(r => r.ReviewedOn.CompareTo(to) <= 0)
-                .Select(r => new ReviewDetailsModel()
-                {
-                    Id = r.Id,
-                    Text = r.Text,
-                    Score = r.Score,
-                    ReviewedOn = r.ReviewedOn,
-                    ByUser = r.User.UserName
-                });
+                .ProjectTo<ReviewDetailsModel>()
+                .ToListAsync();
 
             switch (order)
             {

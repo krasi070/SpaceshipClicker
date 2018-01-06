@@ -4,6 +4,7 @@
     using Models;
     using SpaceshipClicker.Services;
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
@@ -14,23 +15,8 @@
             this._reviews = reviews;
         }
 
-        public IActionResult Index()
-            => View(this._reviews.GetDefault());
-        
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
+        public async Task<IActionResult> Index()
+            => View(await this._reviews.GetDefaultAsync());
 
         public IActionResult Error()
         {

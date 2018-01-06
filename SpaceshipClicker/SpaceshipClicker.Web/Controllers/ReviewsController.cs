@@ -8,6 +8,7 @@
     using SpaceshipClicker.Services;
     using SpaceshipClicker.Services.Models.Reviews;
     using System;
+    using System.Threading.Tasks;
 
     public class ReviewsController : Controller
     {
@@ -22,7 +23,7 @@
 
         [AllowAnonymous]
         [Route("Reviews/List/{order}")]
-        public IActionResult List(string order, ReviewFilterViewModel model)
+        public async Task<IActionResult> List(string order, ReviewFilterViewModel model)
         {
             if (string.IsNullOrEmpty(order))
             {
@@ -45,21 +46,21 @@
             {
                 return View(new ReviewListViewModel()
                 {
-                    Reviews = this._reviews.GetAllApproved(reviewOrder)
+                    Reviews = await this._reviews.GetAllApprovedAsync(reviewOrder)
                 });
             } 
 
             return View(new ReviewListViewModel()
             {
                 Order = reviewOrder,
-                Reviews = this._reviews.GetFilteredReviews(reviewOrder, model.MinStars, model.MaxStars, model.From, model.To)
+                Reviews = await this._reviews.GetFilteredReviewsAsync(reviewOrder, model.MinStars, model.MaxStars, model.From, model.To)
             });
         }
 
         [Authorize]
-        public IActionResult Post()
+        public async Task<IActionResult> Post()
         {
-            if (this._reviews.HasUserPostedReview(this._userManager.GetUserName(User)))
+            if (await this._reviews.HasUserPostedReviewAsync(this._userManager.GetUserName(User)))
             {
                 return NotFound();
             }
@@ -69,7 +70,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Post(ReviewFormViewModel model)
+        public async Task<IActionResult> Post(ReviewFormViewModel model)
         {
             if (model == null)
             {
@@ -81,48 +82,48 @@
                 return View(model);
             }
 
-            this._reviews.Create(model.Text, (int)Math.Round(model.Stars * 2), this._userManager.GetUserId(HttpContext.User));
+            await this._reviews.CreateAsync(model.Text, (int)Math.Round(model.Stars * 2), this._userManager.GetUserId(HttpContext.User));
 
             return Redirect("List/DateDescending");
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return this.EditDeleteReview(id, false);
+            return await this.EditDeleteReview(id, false);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(int id, ReviewFormViewModel model)
+        public async Task<IActionResult> Edit(int id, ReviewFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            this._reviews.Edit(id, model.Text, (int)(model.Stars * 2));
+            await this._reviews.EditAsync(id, model.Text, (int)(model.Stars * 2));
 
             return Redirect("/Reviews/List/DateDescending");
         }
 
         [Authorize]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return this.EditDeleteReview(id, true);
+            return await this.EditDeleteReview(id, true);
         }
 
         [Authorize]
-        public IActionResult Destroy(int id)
+        public async Task<IActionResult> Destroy(int id)
         {
-            this._reviews.Delete(id);
+            await this._reviews.DeleteAsync(id);
 
             return Redirect("/Reviews/List/DateDescending");
         }
 
-        private IActionResult EditDeleteReview(int id, bool isDelete)
+        private async Task<IActionResult> EditDeleteReview(int id, bool isDelete)
         {
-            var review = this._reviews.GetById(id);
+            var review = await this._reviews.GetByIdAsync(id);
             if (review == null)
             {
                 return NotFound();

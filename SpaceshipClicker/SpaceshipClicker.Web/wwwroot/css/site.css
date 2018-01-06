@@ -88,7 +88,7 @@ footer {
 }
 
 .carousel-caption p {
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.4;
 }
 
@@ -213,6 +213,13 @@ li.sc-review:hover {
 
 .sc-input.sc-input-danger {
     border-color: #E74C3C;
+} 
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #ECF0F1;
+    color: #3498DB;
 }
 
 .sc-list {
@@ -221,6 +228,7 @@ li.sc-review:hover {
 
 .sc-list > li {
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
 /*Scrolling animation*/

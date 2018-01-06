@@ -8,6 +8,7 @@
     using SpaceshipClicker.Web.Areas.Admin.Models.UserViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     [Area("Admin")]
     [Route("Admin")]
@@ -24,7 +25,7 @@
         }
 
         [Route("Users/List/{page}")]
-        public IActionResult List(int page, UserSearchViewModel model)
+        public async Task<IActionResult> List(int page, UserSearchViewModel model)
         {
             if (page < 1)
             {
@@ -34,11 +35,11 @@
             IEnumerable<UserListingModel> users = new List<UserListingModel>();
             if (string.IsNullOrEmpty(model.SearchUsername))
             {
-                users = this._users.GetAll(page, PageSize);
+                users = await this._users.GetAllAsync(page, PageSize);
             }
             else
             {
-                users = this._users.GetAllMatches(model.SearchUsername, page, PageSize);
+                users = await this._users.GetAllMatchesAsync(model.SearchUsername, page, PageSize);
             }
 
             return View(new UserPageViewModel()
@@ -50,9 +51,9 @@
         }
 
         [Route("Users/Details/{id}")]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var user = this._users.GetById(id);
+            var user = await this._users.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();

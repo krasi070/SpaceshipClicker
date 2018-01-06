@@ -6,8 +6,9 @@
 
     public class ReviewFormViewModel
     {
-        [MinLength(GlobalConstants.ReviewMinTextLength)]
-        [MaxLength(GlobalConstants.ReviewMaxTextLength)]
+        [MinLength(GlobalConstants.ReviewMinTextLength, ErrorMessage = "The Review field must be at least {1} characters long!")]
+        [MaxLength(GlobalConstants.ReviewMaxTextLength, ErrorMessage = "The Review field must not be longer than {1} characters!")]
+        [Required]
         [Display(Name = "Review")]
         public string Text { get; set; }
 

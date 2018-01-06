@@ -2,15 +2,16 @@
 {
     using Models.Users;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IUserService
     {
         int Total { get; }
 
-        IEnumerable<UserListingModel> GetAll(int page, int pageSize);
+        Task<IEnumerable<UserListingModel>> GetAllAsync(int page, int pageSize);
 
-        IEnumerable<UserListingModel> GetAllMatches(string searchStr, int page, int pageSize);
+        Task<IEnumerable<UserListingModel>> GetAllMatchesAsync(string searchStr, int page, int pageSize);
 
-        UserDetailsModel GetById(string id);
+        Task<UserDetailsModel> GetByIdAsync(string id);
     }
 }

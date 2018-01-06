@@ -1,9 +1,10 @@
 ﻿namespace SpaceshipClicker.Services.Models.Reviews
 {
-    public class ReviewAdminDetailsModel : ReviewDetailsModel
-    {
-        public int Id { get; set; }
+    using Common.Mapping;
+    using Data.Models;
 
+    public class ReviewAdminDetailsModel : ReviewDetailsModel, IMapFrom<Review>, IHaveCustomMapping
+    {
         public string UserId { get; set; }
 
         public bool IsApproved { get; set; }

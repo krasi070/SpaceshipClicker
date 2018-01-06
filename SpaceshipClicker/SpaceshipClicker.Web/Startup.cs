@@ -1,5 +1,6 @@
 ﻿namespace SpaceshipClicker.Web
 {
+    using AutoMapper;
     using Constants;
     using Data;
     using Data.Models;
@@ -11,6 +12,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Web.Services;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -37,10 +39,14 @@
                 .AddEntityFrameworkStores<SpaceshipClickerDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAutoMapper();
             services.AddDomainServices();
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

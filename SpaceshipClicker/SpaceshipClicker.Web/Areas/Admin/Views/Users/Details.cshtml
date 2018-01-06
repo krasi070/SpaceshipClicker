@@ -8,15 +8,15 @@
 <h2>@Model.Username</h2>
 <hr />
 <ul class="col-md-6 sc-list">
-    <li>Email: @Model.Email</li>
-    <li>Spaceship Name: @(Model.SpaceshipName != null ? Model.SpaceshipName : "[NONE]")</li>
-    <li>Units: @Model.Units</li>
-    <li>Units Per Click: @Model.UnitsPerClick</li>
-    <li>Units Per Second: @Model.UnitsPerSecond</li>
-    <li>AI Level: @Model.AiLevel</li>
-    <li>Bathroom Upgrade: @(Model.HasBathroom ? "Bought" : "Not Bought")</li>
-    <li>Coffee Upgrade: @(Model.HasCoffee ? "Bought" : "Not Bought")</li>
-    <li>Enhancements Upgrade: @(Model.HasEnhancements ? "Bought" : "Not Bought")</li>
+    <li>Email: <i>@Model.Email</i></li>
+    <li>Spaceship Name: <i>@(Model.SpaceshipName != null ? Model.SpaceshipName : "[NONE]")</i></li>
+    <li>Units: <i>@Model.Units</i></li>
+    <li>Units Per Click: <i>@Model.UnitsPerClick</i></li>
+    <li>Units Per Second: <i>@Model.UnitsPerSecond</i></li>
+    <li>AI Level: <i>@Model.AiLevel</i></li>
+    <li>Bathroom Upgrade: <i>@(Model.HasBathroom ? "Bought" : "Not Bought")</i></li>
+    <li>Coffee Upgrade: <i>@(Model.HasCoffee ? "Bought" : "Not Bought")</i></li>
+    <li>Enhancements Upgrade: <i>@(Model.HasEnhancements ? "Bought" : "Not Bought")</i></li>
 </ul>
 @if (Model.ReviewId != null)
 {

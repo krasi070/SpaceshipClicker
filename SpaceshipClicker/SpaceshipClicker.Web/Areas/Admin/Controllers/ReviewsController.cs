@@ -6,6 +6,7 @@
     using Models.ReviewViewModels;
     using SpaceshipClicker.Services;
     using System;
+    using System.Threading.Tasks;
 
     [Area("Admin")]
     [Route("Admin")]
@@ -22,14 +23,14 @@
         }
         
         [Route("Reviews/List/{page}")]
-        public IActionResult List(int page, ReviewPageFilterViewModel model)
+        public async Task<IActionResult> List(int page, ReviewPageFilterViewModel model)
         {
             if (page < 1)
             {
                 return NotFound();
             }
 
-            var reviews = this._reviews.GetAllWithDetails(
+            var reviews = await this._reviews.GetAllWithDetailsAsync(
                     model.DisplayApproved,
                     model.DisplayNotApproved,
                     model.DisplayDefault,
@@ -50,9 +51,9 @@
         }
 
         [Route("Reviews/Edit/{id}")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var review = this._reviews.GetById(id);
+            var review = await this._reviews.GetByIdAsync(id);
             if (review == null)
             {
                 return NotFound();
@@ -73,14 +74,14 @@
 
         [HttpPost]
         [Route("Reviews/Edit/{id}")]
-        public IActionResult Edit(int id, ReviewStatesViewModel model)
+        public async Task<IActionResult> Edit(int id, ReviewStatesViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            this._reviews.ChangeStates(id, model.IsApproved, model.IsDefault);
+            await this._reviews.ChangeStatesAsync(id, model.IsApproved, model.IsDefault);
 
             return Redirect("/Admin/Reviews/List/1");
         }

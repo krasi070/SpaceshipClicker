@@ -12,7 +12,7 @@
     <form asp-controller="Reviews" asp-action="@ViewData["Action"]">
         <div class="form-group">
             <label asp-for="Text"></label>
-            <textarea asp-for="Text" rows="10" class="form-control sc-input"></textarea>
+            <textarea asp-for="Text" rows="10" placeholder="@GlobalConstants.ReviewMaxTextLength Character Limit" class="form-control sc-input"></textarea>
             <span asp-validation-for="Text" class="sc-danger"></span>
         </div>
         <div class="form-group">
