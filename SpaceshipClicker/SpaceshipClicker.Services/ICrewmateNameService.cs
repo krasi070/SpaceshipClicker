@@ -19,8 +19,10 @@
 
         Task<IEnumerable<CrewmateNameModel>> GetAllMatchesAsync(Race race, string searchStr, int page, int pageSize);
 
-        Task Create(string name, Gender gender, Race race);
+        Task<CrewmateNameModel> GetByIdAsync(int id);
 
-        Task Delete(int id);
+        Task CreateAsync(string name, Gender gender, Race race);
+
+        Task DeleteAsync(int id);
     }
 }

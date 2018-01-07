@@ -1,0 +1,28 @@
+﻿@model CrewmateEmailFormViewModel
+
+@{ 
+    ViewData["Title"] = "Edit Email - Spaceship Clicker";
+}
+
+<h2>Email</h2>
+<hr />
+<div class="col-md-6">
+    <form asp-area="Admin" asp-controller="Emails" asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="AddText"></label>
+            <textarea asp-for="AddText" rows="10" class="form-control sc-input"></textarea>
+            <span asp-validation-for="AddText" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AddMinDepressionLevel"></label>
+            <input asp-for="AddMinDepressionLevel" class="form-control sc-input" />
+            <span asp-validation-for="AddMinDepressionLevel" class="sc-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AddMaxDepressionLevel"></label>
+            <input asp-for="AddMaxDepressionLevel" class="form-control sc-input" />
+            <span asp-validation-for="AddMaxDepressionLevel" class="sc-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-default sc-btn sc-btn-review-form">Edit</button>
+    </form>
+</div>

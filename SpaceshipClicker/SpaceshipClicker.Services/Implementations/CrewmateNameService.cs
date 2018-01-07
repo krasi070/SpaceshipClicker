@@ -21,7 +21,7 @@
 
         public int Total { get; set; }
 
-        public async Task Create(string name, Gender gender, Race race)
+        public async Task CreateAsync(string name, Gender gender, Race race)
         {
             CrewmateName crewmateName = new CrewmateName()
             {
@@ -34,7 +34,7 @@
             await this._db.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var crewmateName = await this._db.CrewmateNames.FindAsync(id);
             if (crewmateName == null)
@@ -107,5 +107,11 @@
                 .ProjectTo<CrewmateNameModel>()
                 .ToListAsync();
         }
+
+        public async Task<CrewmateNameModel> GetByIdAsync(int id)
+            => await this._db.CrewmateNames
+                .Where(cn => cn.Id == id)
+                .ProjectTo<CrewmateNameModel>()
+                .FirstOrDefaultAsync();
     }
 }

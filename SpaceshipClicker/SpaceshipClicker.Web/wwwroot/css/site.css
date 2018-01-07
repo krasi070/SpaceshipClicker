@@ -231,6 +231,10 @@ li.sc-review:hover {
     margin-bottom: 10px;
 }
 
+.sc-action-th {
+    width: 130px;
+}
+
 /*Scrolling animation*/
 .overlay {
     background: url('../images/spaceship_clicker_bg.png');

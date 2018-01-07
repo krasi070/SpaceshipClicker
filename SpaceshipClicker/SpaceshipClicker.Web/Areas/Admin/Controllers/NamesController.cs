@@ -106,7 +106,12 @@
         [Route("Names/List/{race}/{page}")]
         public async Task<IActionResult> List(string race, int page, CrewmateNamePageViewModel model)
         {
-            await this._crewmateNames.Create(model.AddName, model.AddGender, model.AddRace);
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            await this._crewmateNames.CreateAsync(model.AddName, model.AddGender, model.AddRace);
 
             return Redirect(TempData["PathAndQuery"].ToString());
         }
@@ -114,7 +119,12 @@
         [Route("Names/Destroy/{id}")]
         public async Task<IActionResult> Destroy(int id)
         {
-            await this._crewmateNames.Delete(id);
+            if (await this._crewmateNames.GetByIdAsync(id) == null)
+            {
+                return NotFound();
+            }
+
+            await this._crewmateNames.DeleteAsync(id);
 
             return Redirect(TempData["PathAndQuery"].ToString());
         }

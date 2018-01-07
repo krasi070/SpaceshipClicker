@@ -17,12 +17,6 @@
 
         public Race Race { get; set; }
 
-        public Emotion Emotion { get; set; }
-
-        public int? CrushId { get; set; }
-
-        public Crewmate Crush { get; set; }
-
         [Range(GlobalConstants.CrewmateMinDepressionLevel, GlobalConstants.CrewmateMaxDepressionLevel)]
         public int DepressionLevel { get; set; }
 

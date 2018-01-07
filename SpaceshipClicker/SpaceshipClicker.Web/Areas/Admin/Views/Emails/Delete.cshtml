@@ -1,0 +1,25 @@
+﻿@model CrewmateEmailFormViewModel
+
+@{
+    ViewData["Title"] = "Delete Email - Spaceship Clicker";
+}
+
+<h2>Email</h2>
+<hr />
+<div class="col-md-6">
+    <form>
+        <div class="form-group">
+            <label asp-for="AddText"></label>
+            <textarea asp-for="AddText" disabled rows="10" class="form-control sc-input sc-input-danger"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="AddMinDepressionLevel"></label>
+            <input asp-for="AddMinDepressionLevel" disabled class="form-control sc-input sc-input-danger" />
+        </div>
+        <div class="form-group">
+            <label asp-for="AddMaxDepressionLevel"></label>
+            <input asp-for="AddMaxDepressionLevel" disabled class="form-control sc-input sc-input-danger" />
+        </div>
+        <a href="/Admin/Emails/Destroy/@Model.Id" class="btn btn-default sc-btn-review-form sc-btn-danger">Delete</a>
+    </form>
+</div>

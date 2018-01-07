@@ -7,8 +7,8 @@
         public const int ReviewMaxScore = 10;
         public const int ReviewMinScore = 1;
 
-        public const int TweetMaxTextLength = 140;
-        public const int TweetMinTextLength = 1;
+        public const int EmailMaxTextLength = 140;
+        public const int EmailMinTextLength = 1;
 
         public const int BottleMessageMaxTextLength = 1000;
         public const int BottleMessageMinTextLength = 5;

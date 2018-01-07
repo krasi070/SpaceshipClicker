@@ -19,7 +19,7 @@
 
         public DbSet<BottleMessage> BottleMessages { get; set; }
 
-        public DbSet<Tweet> Tweets { get; set; }
+        public DbSet<CrewmateEmail> CrewmateEmails { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
 

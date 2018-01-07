@@ -7,6 +7,15 @@
 }
 
 <aside class="sc-admin-filters">
+    <h2>Search</h2>
+    <hr />
+    <form method="get">
+        <div class="form-group">
+            <label asp-for="SearchName"></label>
+            <input asp-for="SearchName" placeholder="Search" class="sc-input form-control" />
+        </div>
+        <button type="submit" class="btn btn-default sc-btn sc-btn-apply">Search</button>
+    </form>
     <h2>Filters</h2>
     <hr />
     <select class="form-control sc-input" onchange="location = this.value;">
@@ -55,15 +64,6 @@
             <option value="/Admin/Names/List/Icing/@Model.CurrentPage@(Context.Request.QueryString.Value)">Icing</option>
         }
     </select>
-    <h2>Search</h2>
-    <hr />
-    <form method="get">
-        <div class="form-group">
-            <label asp-for="SearchName"></label>
-            <input asp-for="SearchName" placeholder="Search" class="sc-input form-control" />
-        </div>
-        <button type="submit" class="btn btn-default sc-btn sc-btn-apply">Search</button>
-    </form>
     <h2>Add Name</h2>
     <hr />
     <form method="post">
