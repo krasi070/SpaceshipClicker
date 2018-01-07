@@ -26,4 +26,8 @@
     <ProjectReference Include="..\SpaceshipClicker.Services\SpaceshipClicker.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Game\Models\" />
+  </ItemGroup>
+
 </Project>

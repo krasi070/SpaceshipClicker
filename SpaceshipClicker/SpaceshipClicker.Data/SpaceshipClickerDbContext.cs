@@ -13,6 +13,8 @@
 
         public DbSet<Crewmate> Crew { get; set; }
 
+        public DbSet<CrewmateName> CrewmateNames { get; set; }
+
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<BottleMessage> BottleMessages { get; set; }

@@ -8,6 +8,7 @@
     using SpaceshipClicker.Web.Areas.Admin.Models.UserViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     [Area("Admin")]
@@ -40,6 +41,11 @@
             else
             {
                 users = await this._users.GetAllMatchesAsync(model.SearchUsername, page, PageSize);
+            }
+
+            if (users.Count() == 0 && this._users.Total > 0)
+            {
+                return Redirect("/Admin/Users/List/1" + HttpContext.Request.QueryString.Value);
             }
 
             return View(new UserPageViewModel()

@@ -6,6 +6,7 @@
     using Models.ReviewViewModels;
     using SpaceshipClicker.Services;
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     [Area("Admin")]
@@ -37,6 +38,11 @@
                     model.DisplayNotDefault,
                     page,
                     PageSize);
+
+            if (reviews.Count() == 0 && this._reviews.Total > 0)
+            {
+                return Redirect("/Admin/Reviews/List/1" + HttpContext.Request.QueryString.Value);
+            }
 
             return View(new ReviewPageViewModel()
             {

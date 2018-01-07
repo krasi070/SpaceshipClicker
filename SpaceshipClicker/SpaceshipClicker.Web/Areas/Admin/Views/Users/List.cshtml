@@ -60,9 +60,28 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-                @for (int i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)"><a class="page-link" href="/Admin/Users/List/@i@(Context.Request.QueryString.Value)">@i</a></li>
+                @{ 
+                    int start = 1;
+                    int end = Model.TotalPages;
+                    if (Model.TotalPages > 7)
+                    {
+                        start = Math.Max(1, Model.CurrentPage - 3);
+                        if (Model.TotalPages - Model.CurrentPage <= 3)
+                        {
+                            start -= (3 - (Model.TotalPages - Model.CurrentPage));
+                        }
+
+                        end = Math.Min(Model.TotalPages, Model.CurrentPage + 3);
+                        if (Model.CurrentPage <= 3)
+                        {
+                            end += (4 - Model.CurrentPage);
+                        }
+                    }
+
+                    @for (int i = start; i <= end; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)"><a class="page-link" href="/Admin/Users/List/@i@(Context.Request.QueryString.Value)">@i</a></li>
+                    }
                 }
                 <li class="page-item @nextDisabled">
                     <a class="page-link @nextDisabled" href="/Admin/Users/List/@Model.NextPage@(Context.Request.QueryString.Value)" aria-label="Next">

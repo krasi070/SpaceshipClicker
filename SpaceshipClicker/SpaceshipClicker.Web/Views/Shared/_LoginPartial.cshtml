@@ -11,7 +11,13 @@
             @if (User.IsInRole(GlobalConstants.AdministratorRole))
             {
                 <li>
+                    <a href="/Game">Spaceship</a>
+                </li>
+                <li>
                     <a href="/Admin/Users/List/1">Users</a>
+                </li>
+                <li>
+                    <a href="/Admin/Names/List/All/1">Names</a>
                 </li>
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reviews<span class="caret"></span>
@@ -24,6 +30,9 @@
             }
             else
             {
+                <li>
+                    <a href="/Game">Spaceship</a>
+                </li>
                 <li>
                     <a asp-area="" asp-controller="" asp-action="" title="">Crew</a>
                 </li>
