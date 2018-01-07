@@ -9,6 +9,8 @@
     {
         int Total { get; }
 
+        Task<IEnumerable<CrewmateNameModel>> GetAllAsync();
+
         Task<IEnumerable<CrewmateNameModel>> GetAllAsync(int page, int pageSize);
 
         Task<IEnumerable<CrewmateNameModel>> GetAllOfRaceAsync(Race race, int page, int pageSize);

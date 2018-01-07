@@ -46,6 +46,11 @@
             await this._db.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<CrewmateNameModel>> GetAllAsync()
+            => await this._db.CrewmateNames
+                .ProjectTo<CrewmateNameModel>()
+                .ToListAsync();
+
         public async Task<IEnumerable<CrewmateNameModel>> GetAllAsync(int page, int pageSize)
         {
             this.Total = this._db.CrewmateNames.Count();
