@@ -50,7 +50,7 @@
                 @foreach (var review in Model.Reviews)
                 {
                     <tr class="sc-row">
-                        <td>@review.Text.Substring(0, 80)...</td>
+                        <td>@review.Text.Substring(0, Math.Min(review.Text.Length, 80))...</td>
                         <td>@(review.Score / 2.0)</td>
                         <td><a class="sc-link" href="/Admin/Users/Details/@review.UserId">@review.ByUser</a></td>
                         <td>@(review.IsApproved ? "Yes" : "No")</td>
