@@ -36,7 +36,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        
+
         <footer class="sc-footer">
             <hr />
             <p>&copy; 2017 - Spaceship Clicker</p>
@@ -65,5 +65,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    <script>$(() => attachEvents())</script>
 </body>
 </html>

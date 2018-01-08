@@ -5,33 +5,95 @@
 <div class="sc-game">
     <div class="col-md-7 sc-spaceship-container">
         <h2>USS Callister</h2>
-        <h1>0 Units</h1>
-        <h4>1 U/s</h4>
-        <img src="~/images/spaceship.png" class="sc-spaceship-img" />
+        <h1><span id="units">0</span> Units</h1>
+        <h4><span id="unitsPerSecond">1</span> U/s</h4>
+        <img src="~/images/spaceship.png" class="sc-spaceship-img" onclick="addClickUnits()" />
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5" id="upgrades-tab" gametab="gametab">
         <ul class="sc-crewmate-ul">
             <li>
                 <ul class="sc-upgrades-ul">
-                    <li class="sc-upgrade" title="Bathroom Upgrade"><span>WC</span></li>
+                    <li class="sc-upgrade" unlocked="unlocked" title="Bathroom Upgrade"><span>WC</span></li>
                     <li class="sc-upgrade"><span><i class="fa fa-lock" aria-hidden="true"></i></span></li>
                     <li class="sc-upgrade"><span><i class="fa fa-lock" aria-hidden="true"></i></span></li>
                     <li class="sc-upgrade"><span><i class="fa fa-lock" aria-hidden="true"></i></span></li>
                 </ul>
                 <hr />
             </li>
-            <li class="sc-crewmate">
+            <li class="sc-crewmate" id="human-btn" unlocked="unlocked">
                 <img src="~/images/human_male.png" />
+                <p class="sc-crewmate-info">
+                    Human
+                    <br />
+                    Price: <span id="humanPrice">100</span>
+                    <br />
+                    Count: <span id="humanCount">0</span>
+                    <br />
+                    <span id="humanUnitsPerSecond">1</span> Units per Second
+                </p>
             </li>
-            <li class="sc-crewmate">
-                <img src="~/images/magmar.png" />
+            <li class="sc-crewmate" id="magmar-btn">
+                <img src="~/images/magmar.png" style="display: none" />
+                <p class="sc-crewmate-info" style="display: none">
+                    Magmar
+                    <br />
+                    Price: <span id="magmarPrice">1000</span>
+                    <br />
+                    Count: <span id="magmarCount">0</span>
+                    <br />
+                    <span id="magmarUnitsPerSecond">5</span> Units per Second
+                </p>
+                <p class="sc-crewmate-locked">LOCKED</p>
             </li>
-            <li class="sc-crewmate">
-                <img src="~/images/braniac.png" />
+            <li class="sc-crewmate" id="braniac-btn">
+                <img src="~/images/braniac.png" style="display: none" />
+                <p class="sc-crewmate-info" style="display: none">
+                    Braniac
+                    <br />
+                    Price: <span id="braniacPrice">7500</span>
+                    <br />
+                    Count: <span id="braniacCount">0</span>
+                    <br />
+                    <span id="braniacUnitsPerSecond">50</span> Units per Second
+                </p>
+                <p class="sc-crewmate-locked">LOCKED</p>
             </li>
-            <li class="sc-crewmate">
-                <img src="~/images/icing.png" />
+            <li class="sc-crewmate" id="icing-btn">
+                <img src="~/images/icing.png" style="display: none" />
+                <p class="sc-crewmate-info" style="display: none">
+                    Icing
+                    <br />
+                    Price: <span id="icingPrice">20000</span>
+                    <br />
+                    Count: <span id="icingCount">0</span>
+                    <br />
+                    <span id="icingUnitsPerSecond">500</span> Units per Second
+                </p>
+                <p class="sc-crewmate-locked">LOCKED</p>
             </li>
+        </ul>
+        <ul class="sc-game-btns">
+            <li name="notification-btn" class="sc-tab"><span>Notifications</span></li>
+            <li name="message-btn" class="sc-tab"><span>Messages</span></li>
+            <li class="sc-save-button"><span>Save</span></li>
+        </ul>
+    </div>
+    <div id="notifications-tab" gametab="gametab" class="col-md-5" style="display: none">
+        <label for="notifications" class="sc-notifications-label">Notifications</label>
+        <textarea readonly id="notifications" rows="21" class="sc-notifications"></textarea>
+        <ul class="sc-game-btns">
+            <li name="upgrades-btn" class="sc-tab"><span>Upgrades</span></li>
+            <li name="message-btn" class="sc-tab"><span>Messages</span></li>
+            <li class="sc-save-button"><span>Save</span></li>
+        </ul>
+    </div>
+    <div id="messages-tab" gametab="gametab" class="col-md-5" style="display: none">
+        <label for="notifications" class="sc-notifications-label">Messages</label>
+        <textarea readonly id="notifications" rows="21" class="sc-messages"></textarea>
+        <ul class="sc-game-btns">
+            <li name="upgrades-btn" class="sc-tab"><span>Upgrades</span></li>
+            <li name="notification-btn" class="sc-tab"><span>Notifications</span></li>
+            <li class="sc-save-button"><span>Save</span></li>
         </ul>
     </div>
 </div>
