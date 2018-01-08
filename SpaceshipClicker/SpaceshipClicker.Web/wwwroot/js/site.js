@@ -44,6 +44,10 @@ let ai3Unlocked = false;
 let ai4Unlocked = false;
 let ai5Unlocked = false;
 
+// Collections
+let names = [];
+let emails = [];
+
 function attachEvents() {
     $('li[name=notification-btn]').on('click', function () {
         $('div[gametab=gametab]').hide();
@@ -64,7 +68,35 @@ function attachEvents() {
         buyHuman();
     });
 
+    getMethods();
+
     setInterval(addUnitsPerSecond, 1000);
+}
+
+function getMethods() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/Names/All',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            names = data;
+            console.log(names);
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/Emails/All',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            emails = data;
+            for (let i = 0; i < 5; i++) {
+                console.log(emails[i].text);;
+            }
+        }
+    });
 }
 
 function addClickUnits() {

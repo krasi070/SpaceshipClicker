@@ -13,5 +13,9 @@
         Task<IEnumerable<UserListingModel>> GetAllMatchesAsync(string searchStr, int page, int pageSize);
 
         Task<UserDetailsModel> GetByIdAsync(string id);
+
+        Task NameSpaceship(string userId, string spaceshipName);
+
+        Task<bool> HasSpaceshipName(string userId);
     }
 }

@@ -51,5 +51,33 @@
                 .Where(u => u.Id == id)
                 .ProjectTo<UserDetailsModel>()
                 .FirstOrDefaultAsync();
+
+        public async Task<bool> HasSpaceshipName(string userId)
+        {
+            var user = await this._db.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(user.SpaceshipName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task NameSpaceship(string userId, string spaceshipName)
+        {
+            var user = await this._db.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return;
+            }
+
+            user.SpaceshipName = spaceshipName;
+            await this._db.SaveChangesAsync();
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿@model UserSpaceshipNameViewModel
+
+@{
+    ViewData["Title"] = "Name your spaceship - Spaceship Clicker";
+}
+
+<h2>Name your spaceship</h2>
+<hr />
+<div class="col-md-6">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="SpaceshipName"></label>
+            <input asp-for="SpaceshipName" class="form-control sc-input" />
+            <span asp-validation-for="SpaceshipName" class="sc-danger"></span>
+       </div>
+        <button type="submit" class="btn btn-default sc-btn sc-btn-review-form">Set</button>
+    </form>
+</div>
